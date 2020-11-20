@@ -8,5 +8,29 @@
     "right": {
       "effect": [-4, 4, 0, 0]
     }
+  },
+  {
+    "q": "Aveti de facut un proiect despre Franta. Veti lucra in grupe de cate 4",
+    "name": "Profesoara de Franceza",
+    "left": {
+      "decision": "O sa ajut si eu",
+      "effect": [-6, 0, -2, 4]
+    },
+    "right": {
+      "decision": "Nu ma implic",
+      "effect": [4, 0, 0, -6]
+    }
+  },
+  {
+    "q": "Voiam sa te intrebam daca vrei sa participi la petrecerea de Halloween de diseara",
+    "name": "Prieteni",
+    "left": {
+      "decision": "O sa vin (cumpar costum)",
+      "effect": [-2, 0, -4, 6]
+    },
+    "right": {
+      "decision": "Nu pot veni",
+      "effect": [4, 0, 2, -6]
+    }
   }
 ]

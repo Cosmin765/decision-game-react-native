@@ -6,15 +6,14 @@ import Timer from './src/Timer';
 
 import CustomAlert from './src/CustomAlert';
 
+const gameEventsInitial = require('./data/gameEvents.json').sort(() => Math.random() - 0.5);
 
 export default function App() {
-  // import gameEventsTemp from './data/gameEvents.json';
-  const gameEventsTemp = require('./data/gameEvents.json');
-
   const maxLevel = 20;
   const statsCount = 4;
 
-  const [gameEvents, setGameEvents] = useState(Array.from(gameEventsTemp));
+  const [gameEvents, setGameEvents] = useState(Array.from(gameEventsInitial));
+
   const [alertInfo, setAlertInfo] = useState({
     show: false,
     data: null
@@ -27,7 +26,7 @@ export default function App() {
   const cardsCount = gameEvents.length;
 
   const removeCard = () => {
-    gameEvents.splice(0, 1);
+    gameEvents.splice(gameEvents.findIndex(event => event === gameEventsInitial[gameEventsInitial.length - 1]), 1);
     setGameEvents(Array.from(gameEvents));
   };
 
@@ -46,7 +45,7 @@ export default function App() {
     current: statsLevel.current.map((level, index) => level + effect[index]),
   });
 
-  const passedTime = Math.round(366 / gameEventsTemp.length * (gameEventsTemp.length - gameEvents.length)); // for the timer
+  const passedTime = Math.round(366 / gameEventsInitial.length * (gameEventsInitial.length - gameEvents.length)); // for the timer
 
   return (
     <View style={styles.container}>
