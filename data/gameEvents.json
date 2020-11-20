@@ -1,0 +1,12 @@
+[
+  {
+    "q": "Ti-am adus testul, dar nota nu este una chiar buna. Doresti sa mai inveti si sa dai testul din nou?",
+    "name": "Profesoara de Matematica",
+    "left": {
+      "effect": [4, -4, 0, 0]
+    },
+    "right": {
+      "effect": [-4, 4, 0, 0]
+    }
+  }
+]

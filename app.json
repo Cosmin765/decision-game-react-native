@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "decision-game",
+    "slug": "decision-game",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/card_icon.png",
+    "splash": {
+      "image": "./assets/card_icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/card_icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/card_icon.png"
+    }
+  }
+}
