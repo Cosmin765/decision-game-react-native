@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, StatusBar } from 'react-native';
+import { StyleSheet, View, StatusBar, Image } from 'react-native';
 import GameStats from './src/GameStats';
 import CardsContainer from './src/CardsContainer';
 import Timer from './src/Timer';
@@ -26,7 +26,8 @@ export default function App() {
   const cardsCount = gameEvents.length;
 
   const removeCard = () => {
-    gameEvents.splice(gameEvents.findIndex(event => event === gameEventsInitial[gameEventsInitial.length - 1]), 1);
+    const index = gameEvents.findIndex(event => event === gameEvents[gameEvents.length - 1]);
+    gameEvents.splice(index, 1);
     setGameEvents(Array.from(gameEvents));
   };
 
@@ -53,6 +54,9 @@ export default function App() {
 
       <GameStats statsCount={statsCount} maxLevel={maxLevel} statsCurrLevel={statsLevel.current} statsLastLevel={statsLevel.last} fireAlert={fireAlert}/>
       <CardsContainer updateStatsLevel={updateStatsLevel} removeCard={removeCard} gameEvents={gameEvents} cardsCount={cardsCount}/>
+
+      {/* <Image style={{width: 300, height: 300, position: "absolute", top: 150, left: 0, resizeMode: "contain"}} source={images.bijnitar}/> */}
+      
       <Timer passed={passedTime}/>
 
       { alertInfo.show ? <CustomAlert data={alertInfo.data} disableAlert={disableAlert}/> : null }
@@ -62,8 +66,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    flexDirection: "column",
     height: "100%",
     justifyContent: "center",
   },

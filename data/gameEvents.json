@@ -7,7 +7,8 @@
     },
     "right": {
       "effect": [-4, 4, 0, 0]
-    }
+    },
+    "id": "mate"
   },
   {
     "q": "Aveti de facut un proiect despre Franta. Veti lucra in grupe de cate 4",
@@ -19,7 +20,8 @@
     "right": {
       "decision": "Nu ma implic",
       "effect": [4, 0, 0, -6]
-    }
+    },
+    "id": "franceza"
   },
   {
     "q": "Voiam sa te intrebam daca vrei sa participi la petrecerea de Halloween de diseara",
@@ -31,6 +33,7 @@
     "right": {
       "decision": "Nu pot veni",
       "effect": [4, 0, 2, -6]
-    }
+    },
+    "id": "group"
   }
 ]

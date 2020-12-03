@@ -3,15 +3,16 @@ import { StyleSheet, View } from 'react-native';
 import Card from './Card';
 import uuid from './uuid';
 
-export default function CardsContainer(props) {
-    let count = 0; // for assigning values to cards
+import images from './../data/characters';
 
+export default function CardsContainer(props) {
     const getVisibleCard = () => cards.reduce((prev, curr) => curr.props.offset > prev.props.offset ? curr : prev, cards[0]);
 
-    const cards = Array.from(Array(props.cardsCount).keys()).map(i => 
+    const cards = Array(props.cardsCount).fill(0).map((_, i) => 
         <Card 
-            key={uuid()} offset={i * 3} id={uuid()} gameEvent={props.gameEvents[count++]} getVisibleCard={getVisibleCard} 
-            updateStatsLevel={props.updateStatsLevel} removeCard={props.removeCard}/>
+            key={uuid()} offset={i * 3} id={uuid()} gameEvent={props.gameEvents[i]} getVisibleCard={getVisibleCard} 
+            updateStatsLevel={props.updateStatsLevel} removeCard={props.removeCard} image={images[props.gameEvents[i].id]}
+        />
     );
 
     return (

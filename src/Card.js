@@ -42,7 +42,7 @@ export default function Card(props) {
         }, animDuration);
     };
 
-    const handleTouchEnd = e => (Math.abs(posX) > screen.width / 4) ? fadeTo(posX < 0 ? -1 : 1) : setPosX(0);
+    const handleTouchEnd = () => (Math.abs(posX) > screen.width / 4) ? fadeTo(posX < 0 ? -1 : 1) : setPosX(0);
 
     const animateFade = toValue => setAnimInfo({
         animate: true,
@@ -80,7 +80,7 @@ export default function Card(props) {
                 }}
             > { props.gameEvent.left.decision || "Nu" } </Text>
             
-            { visible ? <VisibleFace gameEvent={props.gameEvent}/> : <Image source={cardIcon} style={styles.img}/> }
+            { visible ? <VisibleFace gameEvent={props.gameEvent} imgSource={props.image}/> : <Image source={cardIcon} style={styles.img}/> }
         </Animated.View>
     );
 }
@@ -88,16 +88,20 @@ export default function Card(props) {
 const VisibleFace = props => {
     return (
         <View style={styles.visibleFace}>
+            <SizedBox height={"20%"}/>
             <Text 
                 style={styles.question}
 
             > " { props.gameEvent.q } " </Text>
+            <Image source={props.imgSource} style={styles.avatar}/>
             <Text
                 style={styles.name}
             > { props.gameEvent.name } </Text>
         </View>
     );
 };
+
+const SizedBox = props => <View style={{height: props.height}}></View>
 
 const styles = StyleSheet.create({
     card: {
@@ -138,7 +142,7 @@ const styles = StyleSheet.create({
         width: 100 + '%',
         height: 100 + '%',
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "space-evenly",
     },
     question: {
         color: '#fff',
@@ -150,5 +154,10 @@ const styles = StyleSheet.create({
         position: "absolute",
         bottom: 20,
         fontSize: 18,
+    },
+    avatar: {
+        width: "100%",
+        height: 150,
+        resizeMode: "center",
     },
 });
