@@ -1,6 +1,6 @@
 const images = {
     bff: require('./../assets/characters/bff.png'),
-    bibliotecara: require('./../assets/characters/bibliotecara.png'),
+    engleza: require('./../assets/characters/engleza.png'),
     bijnitar: require('./../assets/characters/bijnitar.png'),
     biologie: require('./../assets/characters/biologie.png'),
     crush: require('./../assets/characters/crush.png'),

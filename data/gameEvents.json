@@ -35,5 +35,51 @@
       "effect": [4, 0, 2, -6]
     },
     "id": "group"
+  },
+  {
+    "q": "Dupa cum stiti, maine dam un scurt test. Sper sa va pregatiti",
+    "name": "Profesoara de Engleza",
+    "left": {
+      "decision": "O sa mai repet cuvinte noi",
+      "effect": [-3, 3, 0, 0]
+    },
+    "right": {
+      "decision": "Ma bazez pe vocabularul vechi",
+      "effect": [3, -3, 0, 0]
+    },
+    "id": "engleza"
+  },
+  {
+    "q": "*Grupul tau de prieteni iti inmaneaza o tigara* Incearca si tu",
+    "name": "Prieteni",
+    "left": {
+      "effect": [0, 2, 2, -2]
+    },
+    "right": {
+      "effect": [-1, -4, -4, 8]
+    },
+    "id": "group"
+  },
+  {
+    "q": "Vrei sa lucram impreuna la proiectul de saptamana viitoare?",
+    "name": "Tocilara clasei",
+    "left": {
+      "effect": [0, -6, 0, 4]
+    },
+    "right": {
+      "effect": [0, 4, 0, -2]
+    },
+    "id": "tocilara"
+  },
+  {
+    "q": "Buna! Poti sa imi faci tema la romana, nu am timp sa o fac eu",
+    "name": "Crush",
+    "left": {
+      "effect": [4, 0, 0, -2]
+    },
+    "right": {
+      "effect": [-2, -2, 0, 2]
+    },
+    "id": "crush"
   }
 ]
