@@ -16,7 +16,7 @@ export default function Stat(props) {
     Animated.timing(colorAnim, {
         toValue: 255,
         duration: 2000,
-        useNativeDriver: false
+        useNativeDriver: false,
     }).start();
 
     const color = colorAnim.interpolate({
@@ -24,13 +24,11 @@ export default function Stat(props) {
         outputRange: levelIncreased ? ['rgb(0, 255, 0)', 'rgb(255, 255, 255)'] : ['rgb(255, 0, 0)', 'rgb(255, 255, 255)']
     });
 
-    Animated.timing(
-        heightAnim, {
-            toValue: map(props.currLevel, 0, props.maxLevel, 0, statWidth),
-            duration: 1000,
-            useNativeDriver: false,
-        }
-    ).start();
+    Animated.timing(heightAnim, {
+        toValue: map(props.currLevel, 0, props.maxLevel, 0, statWidth),
+        duration: 1000,
+        useNativeDriver: false,
+    }).start();
 
     return (
         <TouchableWithoutFeedback onPress={() => props.fireAlert({title: props.title, message: props.description})}>
@@ -64,7 +62,7 @@ const styles = StyleSheet.create({
         height: statWidth * 0.9,
     },
     fillLevel: {
-        width: 100 + '%',
+        width: "100%",
         position: "absolute",
     },
 });

@@ -29,7 +29,7 @@ export default function Card(props) {
     });
 
     const visible = props.getVisibleCard().props.id === props.id;
-    const handleTouchMove = e => setPosX(e.nativeEvent.pageX - screen.width/2);
+    const handleTouchMove = visible ? (e => setPosX(e.nativeEvent.pageX - screen.width/2)) : nothing;
 
     const fadeTo = dir => {
         const option = dir === -1 ? props.gameEvent.left : props.gameEvent.right;
@@ -42,7 +42,7 @@ export default function Card(props) {
         }, animDuration);
     };
 
-    const handleTouchEnd = () => (Math.abs(posX) > screen.width / 4) ? fadeTo(posX < 0 ? -1 : 1) : setPosX(0);
+    const handleTouchEnd = visible ? (() => (Math.abs(posX) > screen.width / 4) ? fadeTo(posX < 0 ? -1 : 1) : setPosX(0)) : nothing;
 
     const animateFade = toValue => setAnimInfo({
         animate: true,
@@ -61,9 +61,9 @@ export default function Card(props) {
                 ],
                 backgroundColor: visible ? "rgb(148, 33, 0)" : "rgb(99, 22, 0)",
             }}
-            onTouchStart={visible ? handleTouchMove : nothing}
-            onTouchMove={visible ? handleTouchMove : nothing}
-            onTouchEnd={visible ? handleTouchEnd : nothing}
+            onTouchStart={handleTouchMove}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
         >
 
             <Text
