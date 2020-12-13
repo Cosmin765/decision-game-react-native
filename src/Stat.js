@@ -31,7 +31,7 @@ export default function Stat(props) {
     }).start();
 
     return (
-        <TouchableWithoutFeedback onPress={() => props.fireAlert({title: props.title, message: props.description})}>
+        <TouchableWithoutFeedback onPress={() => props.setAlertData({title: props.title, message: props.description})}>
             <View style={styles.stat}>
                 <Animated.View style={{
                     ...styles.fillLevel,

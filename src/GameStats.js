@@ -13,7 +13,7 @@ export default function GameStats(props) {
     const stats = Array.from(Array(2 * props.statsCount - 1).keys()).map(i => i % 2 === 0 ? 
         <Stat 
             key={uuid()} title={statsTitle[count]} description={statsDescription[count]} maxLevel={props.maxLevel} currLevel={props.statsCurrLevel[count]} 
-            lastLevel={props.statsLastLevel[count]} source={statsImages[count++]} fireAlert={props.fireAlert}/> : <SizedBox key={uuid()}/>);
+            lastLevel={props.statsLastLevel[count]} source={statsImages[count++]} setAlertData={props.setAlertData}/> : <SizedBox key={uuid()}/>);
 
     return (
         <View style={styles.gameStats}>

@@ -3,24 +3,18 @@ import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Animated } from '
 
 const screen = Dimensions.get("window");
 
+const animDuration = 300;
+const animateScale = (anim, toValue) => Animated.timing(anim, { toValue, duration: animDuration, useNativeDriver: true }).start();
+
 export default function Alert(props) {
-    const animDuration = 300;
     const scale = new Animated.Value(0.5);
 
-    Animated.timing(scale, {
-        toValue: 1,
-        duration: animDuration,
-        useNativeDriver: true,
-    }).start();
+    animateScale(scale, 1);
 
     const handleClick = () => {
-        Animated.timing(scale, {
-            toValue: 0,
-            duration: animDuration,
-            useNativeDriver: true,
-        }).start();
+        animateScale(scale, 0);
 
-        setTimeout(() => props.disableAlert(), animDuration);
+        setTimeout(() => props.setAlertData(null), animDuration);
     };
 
     return (
