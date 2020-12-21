@@ -1,8 +1,10 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar, StyleSheet } from 'react-native';
+
 import StartScreen from './src/StartScreen';
 import Game from './src/Game';
+import About from './src/About';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -17,6 +19,7 @@ export default function App() {
       <Stack.Navigator>
 
         <Stack.Screen name="StartScreen" component={StartScreen} options={{headerShown: false}} />
+        <Stack.Screen name="About" component={About} options={{headerShown: false}} />
         <Stack.Screen name="Game" component={Game} options={{headerShown: false}} />
       
       </Stack.Navigator>

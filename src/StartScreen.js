@@ -1,18 +1,25 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+
+import infoIcon from './../assets/info.png';
 
 export default function Timer(props) {
     
-    const handleClick = () => props.navigation.navigate("Game");
+    const goTo = name => props.navigation.navigate(name);
 
     return (
         <View style={styles.startScreen}>
-            <TouchableOpacity onPress={handleClick}>
+            <TouchableOpacity onPress={() => goTo("Game")}>
                 <View style={styles.startBtn}>
-                    <Text style={{...styles.text, fontFamily: 'langar'}}>
+                    <Text style={{...styles.text}}>
                         Start
                     </Text>
                 </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => goTo("About")}>
+              <View style={styles.infoContainer}>
+                <Image source={infoIcon} style={styles.infoImg}/>
+              </View>
             </TouchableOpacity>
         </View>
     );
@@ -36,5 +43,15 @@ const styles = StyleSheet.create({
         // backgroundColor: "rgb(0, 200, 0)",
         // borderRadius: 10,
         // padding: 30,
+    },
+    infoContainer: {
+      width: 50,
+      height: 50,
+      backgroundColor: "red"
+    },
+    infoImg: {
+      width: "100%",
+      height: "100%",
+      resizeMode: "contain",
     },
 });
