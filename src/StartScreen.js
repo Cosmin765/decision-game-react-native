@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, SafeAreaView } from 'react-native';
 
 import infoIcon from './../assets/info.png';
 
@@ -8,7 +8,7 @@ export default function Timer(props) {
     const goTo = name => props.navigation.navigate(name);
 
     return (
-        <View style={styles.startScreen}>
+        <SafeAreaView style={styles.startScreen}>
             <TouchableOpacity onPress={() => goTo("Game")}>
                 <View style={styles.startBtn}>
                     <Text style={{...styles.text}}>
@@ -21,7 +21,7 @@ export default function Timer(props) {
                 <Image source={infoIcon} style={styles.infoImg}/>
               </View>
             </TouchableOpacity>
-        </View>
+        </SafeAreaView>
     );
 }
 

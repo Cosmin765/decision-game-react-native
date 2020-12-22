@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet , View } from 'react-native';
+import { StyleSheet , SafeAreaView } from 'react-native';
 
 import GameStats from './GameStats';
 import CardsContainer from './CardsContainer';
@@ -28,14 +28,14 @@ export default function Game(props) {
     const passedTime = Math.round(365 / gameEventsInitial.length * (gameEventsInitial.length - gameEvents.length)); // for the timer
 
     return (
-        <View style={styles.game}>
+        <SafeAreaView style={styles.game}>
             <GameStats statsCount={statsCount} maxLevel={maxLevel} statsCurrLevel={statsLevel.current} statsLastLevel={statsLevel.last} setAlertData={setAlertData}/>
             <CardsContainer updateStatsLevel={updateStatsLevel} removeCard={removeCard} gameEvents={gameEvents} cardsCount={cardsCount}/>
             
             <Timer passed={passedTime}/>
 
             { alertData ? <CustomAlert data={alertData} setAlertData={setAlertData}/> : null }
-        </View>
+        </SafeAreaView>
     );
 }
 

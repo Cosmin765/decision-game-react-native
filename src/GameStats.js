@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, Dimensions } from 'react-native';
+import React from 'react';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import Stat from './Stat';
 
 import uuid from './uuid';

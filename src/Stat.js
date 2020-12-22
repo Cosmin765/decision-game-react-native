@@ -8,27 +8,18 @@ const statWidth = screen.width / 8;
 
 export default function Stat(props) {
     const heightAnim = new Animated.Value(map(props.lastLevel, 0, props.maxLevel, 0, statWidth));
+    const colorAnim = props.currLevel === props.lastLevel ? new Animated.Value(255) : new Animated.Value(0);
     
     const levelIncreased = props.currLevel > props.lastLevel;
-    
-    const colorAnim = props.currLevel === props.lastLevel ? new Animated.Value(255) : new Animated.Value(0);
 
-    Animated.timing(colorAnim, {
-        toValue: 255,
-        duration: 2000,
-        useNativeDriver: false,
-    }).start();
+    Animated.timing(colorAnim, { toValue: 255, duration: 2000, useNativeDriver: false }).start();
 
     const color = colorAnim.interpolate({
         inputRange: [0, 255],
         outputRange: levelIncreased ? ['rgb(0, 255, 0)', 'rgb(255, 255, 255)'] : ['rgb(255, 0, 0)', 'rgb(255, 255, 255)']
     });
 
-    Animated.timing(heightAnim, {
-        toValue: map(props.currLevel, 0, props.maxLevel, 0, statWidth),
-        duration: 1000,
-        useNativeDriver: false,
-    }).start();
+    Animated.timing(heightAnim, { toValue: map(props.currLevel, 0, props.maxLevel, 0, statWidth), duration: 1000, useNativeDriver: false }).start();
 
     return (
         <TouchableWithoutFeedback onPress={() => props.setAlertData({title: props.title, message: props.description})}>
