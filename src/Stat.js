@@ -1,33 +1,34 @@
 import React from 'react';
 import { StyleSheet, View, Dimensions, Image, Animated, TouchableWithoutFeedback } from 'react-native';
 
-const map = (x, a, b, c, d) => (x-a)/(b-a)*(d-c)+c;
+const map = (x, a, b, c, d) => (x - a) / (b - a) * (d - c) + c;
 
 const screen = Dimensions.get("window");
 const statWidth = screen.width / 8;
 
 export default function Stat(props) {
-    const heightAnim = new Animated.Value(map(props.lastLevel, 0, props.maxLevel, 0, statWidth));
-    const colorAnim = props.currLevel === props.lastLevel ? new Animated.Value(255) : new Animated.Value(0);
+    const level = props.update ? props.lastLevel : props.currLevel;
+    const heightAnim = new Animated.Value(map(level, 0, props.maxLevel, 0, statWidth));
+    const colorAnim = (props.currLevel === props.lastLevel || !props.update) ? new Animated.Value(1) : new Animated.Value(0);
+    const { title, description } = props.info;
     
     const levelIncreased = props.currLevel > props.lastLevel;
 
-    Animated.timing(colorAnim, { toValue: 255, duration: 2000, useNativeDriver: false }).start();
+    Animated.timing(colorAnim, { toValue: 1, duration: 1500, useNativeDriver: false }).start();
 
     const color = colorAnim.interpolate({
-        inputRange: [0, 255],
+        inputRange: [0, 1],
         outputRange: levelIncreased ? ['rgb(0, 255, 0)', 'rgb(255, 255, 255)'] : ['rgb(255, 0, 0)', 'rgb(255, 255, 255)']
     });
 
     Animated.timing(heightAnim, { toValue: map(props.currLevel, 0, props.maxLevel, 0, statWidth), duration: 1000, useNativeDriver: false }).start();
 
     return (
-        <TouchableWithoutFeedback onPress={() => props.setAlertData({title: props.title, message: props.description})}>
+        <TouchableWithoutFeedback onPress={() => props.fireAlert({ title, message: description })}>
             <View style={styles.stat}>
                 <Animated.View style={{
                     ...styles.fillLevel,
                     height: heightAnim,
-                    bottom: 0,
                     backgroundColor: color 
                 }}></Animated.View>
                 <Image source={props.source} style={styles.image}/>
@@ -55,5 +56,6 @@ const styles = StyleSheet.create({
     fillLevel: {
         width: "100%",
         position: "absolute",
+        bottom: 0,
     },
 });

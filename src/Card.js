@@ -6,27 +6,15 @@ const screen = Dimensions.get("window");
 
 const map = (x, a, b, c, d) => (x-a)/(b-a)*(d-c)+c;
 const nothing  = () => {};
+const animDuration = 400;
 
 export default function Card(props) {
     const [posX, setPosX] = useState(0);
-    const animDuration = 400;
+    const [animInfo, setAnimInfo] = useState({ animate: false, anim: new Animated.Value(0), toValue: 0 });
 
-    const [animInfo, setAnimInfo] = useState({
-        animate: false,
-        anim: new Animated.Value(0),
-        toValue: 0,
-    });
+    Animated.timing(animInfo.anim, { toValue: animInfo.toValue, duration: animDuration, useNativeDriver: true }).start();
 
-    Animated.timing(animInfo.anim, {
-        toValue: animInfo.toValue,
-        duration: animDuration,
-        useNativeDriver: true,
-    }).start();
-
-    const rot = animInfo.anim.interpolate({
-        inputRange: [-screen.width/2, screen.width/2],
-        outputRange: ["-35deg", "35deg"],
-    });
+    const rot = animInfo.anim.interpolate({ inputRange: [-screen.width/2, screen.width/2], outputRange: ["-35deg", "35deg"] });
 
     const visible = props.getVisibleCard().props.id === props.id;
     const handleTouchMove = visible ? (e => setPosX(e.nativeEvent.pageX - screen.width/2)) : nothing;
@@ -44,11 +32,7 @@ export default function Card(props) {
 
     const handleTouchEnd = visible ? (() => (Math.abs(posX) > screen.width / 4) ? fadeTo(posX < 0 ? -1 : 1) : setPosX(0)) : nothing;
 
-    const animateFade = toValue => setAnimInfo({
-        animate: true,
-        anim: new Animated.Value(posX),
-        toValue: toValue,
-    });
+    const animateFade = toValue => setAnimInfo({ animate: true, anim: new Animated.Value(posX), toValue: toValue });
 
     return (
         <Animated.View 

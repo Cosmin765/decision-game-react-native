@@ -14,7 +14,7 @@ export default function Alert(props) {
     const handleClick = () => {
         animateScale(scale, 0);
 
-        setTimeout(() => props.setAlertData(null), animDuration);
+        setTimeout(() => props.fireAlert(null), animDuration);
     };
 
     return (

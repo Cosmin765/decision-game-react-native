@@ -8,7 +8,11 @@ import CustomAlert from './CustomAlert';
 
 const gameEventsInitial = require('./../data/gameEvents.json').sort(() => Math.random() - 0.5);
 
+let updateStats = true;
+let waitingToUpdateStats = 0;
+
 export default function Game(props) {
+    waitingToUpdateStats--;
     const maxLevel = 20;
     const statsCount = 4;
 
@@ -22,6 +26,16 @@ export default function Game(props) {
         gameEvents.splice(gameEvents.length - 1, 1);
         setGameEvents(Array.from(gameEvents));
     };
+
+    console.log(updateStats);
+
+    const fireAlert = data => {
+        updateStats = false;
+        if(!data) waitingToUpdateStats = 2;
+        setAlertData(data);
+    };
+
+    if(!waitingToUpdateStats) updateStats = true;
     
     const updateStatsLevel = effect => setStatsLevel({ last: Array.from(statsLevel.current), current: statsLevel.current.map((level, index) => level + effect[index]) });
     
@@ -29,12 +43,12 @@ export default function Game(props) {
 
     return (
         <SafeAreaView style={styles.game}>
-            <GameStats statsCount={statsCount} maxLevel={maxLevel} statsCurrLevel={statsLevel.current} statsLastLevel={statsLevel.last} setAlertData={setAlertData}/>
+            <GameStats statsCount={statsCount} maxLevel={maxLevel} statsCurrLevel={statsLevel.current} statsLastLevel={statsLevel.last} fireAlert={fireAlert} updateStats={updateStats}/>
             <CardsContainer updateStatsLevel={updateStatsLevel} removeCard={removeCard} gameEvents={gameEvents} cardsCount={cardsCount}/>
             
             <Timer passed={passedTime}/>
 
-            { alertData ? <CustomAlert data={alertData} setAlertData={setAlertData}/> : null }
+            { alertData ? <CustomAlert data={alertData} fireAlert={fireAlert}/> : null }
         </SafeAreaView>
     );
 }

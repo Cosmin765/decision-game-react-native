@@ -17,7 +17,7 @@ export default function About(props) {
   const [renders, setRenders] = useState(0);
   const colorAnim = new Animated.Value(0);
   
-  Animated.timing(colorAnim, { toValue: 1, duration: 50, useNativeDriver: false }).start(() => setRenders((renders + 1) % interpolationOptions.length));
+  Animated.timing(colorAnim, { toValue: 1, duration: 150, useNativeDriver: false }).start(() => setRenders((renders + 1) % interpolationOptions.length));
 
   const animatedTexts = Array.from(Array(name.length).keys()).map(i => <Animated.Text style={{ color: colorAnim.interpolate({ inputRange: [0, 1], outputRange: interpolationOptions[(renders + i) % interpolationOptions.length] }) }} key={uuid()}>{ name[i] }</Animated.Text>);
 
