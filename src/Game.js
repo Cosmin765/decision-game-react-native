@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRefe} from 'react';
 import { StyleSheet , SafeAreaView } from 'react-native';
 
 import GameStats from './GameStats';
@@ -15,6 +15,9 @@ export default function Game(props) {
     waitingToUpdateStats--;
     const maxLevel = 20;
     const statsCount = 4;
+    
+    // TODO:
+    const alertRef = useRef();
 
     const [gameEvents, setGameEvents] = useState(Array.from(gameEventsInitial));
     const [statsLevel, setStatsLevel] = useState({ last: Array(statsCount).fill(0), current: Array(statsCount).fill(maxLevel/2) });

@@ -16,6 +16,10 @@ export default function Alert(props) {
 
         setTimeout(() => props.fireAlert(null), animDuration);
     };
+    
+    const fireAlert = () => {
+      console.log("hello");
+    };
 
     return (
         <Animated.View style={{...styles.alert, transform: [{scale}]}}>
