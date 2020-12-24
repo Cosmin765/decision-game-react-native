@@ -1,4 +1,4 @@
-import React, { useState, useRefe} from 'react';
+import React, { useState, useRef } from 'react';
 import { StyleSheet , SafeAreaView } from 'react-native';
 
 import GameStats from './GameStats';
@@ -8,53 +8,37 @@ import CustomAlert from './CustomAlert';
 
 const gameEventsInitial = require('./../data/gameEvents.json').sort(() => Math.random() - 0.5);
 
-let updateStats = true;
-let waitingToUpdateStats = 0;
-
-export default function Game(props) {
-    waitingToUpdateStats--;
+const Game = props => {
     const maxLevel = 20;
     const statsCount = 4;
-    
-    // TODO:
-    const alertRef = useRef();
 
     const [gameEvents, setGameEvents] = useState(Array.from(gameEventsInitial));
     const [statsLevel, setStatsLevel] = useState({ last: Array(statsCount).fill(0), current: Array(statsCount).fill(maxLevel/2) });
-    const [alertData, setAlertData] = useState(null);
-
-    const cardsCount = gameEvents.length;
 
     const removeCard = () => {
         gameEvents.splice(gameEvents.length - 1, 1);
         setGameEvents(Array.from(gameEvents));
     };
-
-    console.log(updateStats);
-
-    const fireAlert = data => {
-        updateStats = false;
-        if(!data) waitingToUpdateStats = 2;
-        setAlertData(data);
-    };
-
-    if(!waitingToUpdateStats) updateStats = true;
     
     const updateStatsLevel = effect => setStatsLevel({ last: Array.from(statsLevel.current), current: statsLevel.current.map((level, index) => level + effect[index]) });
     
     const passedTime = Math.round(365 / gameEventsInitial.length * (gameEventsInitial.length - gameEvents.length)); // for the timer
 
+    const alertRef = useRef();
+
+    const fireAlert = data => alertRef.current.fireAlert(data);
+
     return (
         <SafeAreaView style={styles.game}>
-            <GameStats statsCount={statsCount} maxLevel={maxLevel} statsCurrLevel={statsLevel.current} statsLastLevel={statsLevel.last} fireAlert={fireAlert} updateStats={updateStats}/>
-            <CardsContainer updateStatsLevel={updateStatsLevel} removeCard={removeCard} gameEvents={gameEvents} cardsCount={cardsCount}/>
+            <GameStats statsCount={statsCount} maxLevel={maxLevel} statsCurrLevel={statsLevel.current} statsLastLevel={statsLevel.last} fireAlert={fireAlert}/>
+            <CardsContainer updateStatsLevel={updateStatsLevel} removeCard={removeCard} gameEvents={gameEvents} cardsCount={gameEvents.length}/>
             
             <Timer passed={passedTime}/>
 
-            { alertData ? <CustomAlert data={alertData} fireAlert={fireAlert}/> : null }
+            <CustomAlert ref={alertRef}/>
         </SafeAreaView>
     );
-}
+};
 
 const styles = StyleSheet.create({
     game: {
@@ -63,3 +47,5 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
 });
+
+export default Game;

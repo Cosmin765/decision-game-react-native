@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Image, TouchableOpacity, SafeAreaView } from 'r
 
 import infoIcon from './../assets/info.png';
 
-export default function Timer(props) {
+const StartScreen = props => {
     
     const goTo = name => props.navigation.navigate(name);
 
@@ -11,19 +11,17 @@ export default function Timer(props) {
         <SafeAreaView style={styles.startScreen}>
             <TouchableOpacity onPress={() => goTo("Game")}>
                 <View style={styles.startBtn}>
-                    <Text style={{...styles.text}}>
+                    <Text style={styles.btnText}>
                         Start
                     </Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => goTo("About")}>
-              <View style={styles.infoContainer}>
+            <TouchableOpacity onPress={() => goTo("About")} style={styles.infoContainer}>
                 <Image source={infoIcon} style={styles.infoImg}/>
-              </View>
             </TouchableOpacity>
         </SafeAreaView>
     );
-}
+};
 
 const styles = StyleSheet.create({
     startScreen: {
@@ -33,25 +31,32 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
-    text: {
+    btnText: {
         color: "lightgreen",
         fontSize: 150,
         letterSpacing: 4,
         fontWeight: "bold",
     },
     startBtn: {
-        // backgroundColor: "rgb(0, 200, 0)",
-        // borderRadius: 10,
-        // padding: 30,
+
     },
     infoContainer: {
-      width: 50,
-      height: 50,
-      backgroundColor: "red"
+        position: "absolute",
+        top: 30,
+        right: 30,
+        width: 60,
+        height: 60,
+        padding: 10,
+        borderRadius: 20,
+        borderColor: "#fff",
+        borderWidth: 1,
+        backgroundColor: "rgb(30, 30, 30)"
     },
     infoImg: {
-      width: "100%",
-      height: "100%",
-      resizeMode: "contain",
+        width: "100%",
+        height: "100%",
+        resizeMode: "contain",
     },
 });
+
+export default StartScreen;

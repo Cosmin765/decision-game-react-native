@@ -5,12 +5,11 @@ import uuid from './uuid';
 
 import images from './../data/characters';
 
-export default function CardsContainer(props) {
-    const getVisibleCard = () => cards.reduce((prev, curr) => curr.props.offset > prev.props.offset ? curr : prev, cards[0]);
+const CardsContainer = props => {
 
     const cards = Array(props.cardsCount).fill(0).map((_, i) => 
         <Card 
-            key={uuid()} offset={i * 3} id={uuid()} gameEvent={props.gameEvents[i]} getVisibleCard={getVisibleCard} 
+            key={uuid()} offset={i * 3} id={uuid()} gameEvent={props.gameEvents[i]} visible={i === props.cardsCount - 1} 
             updateStatsLevel={props.updateStatsLevel} removeCard={props.removeCard} image={images[props.gameEvents[i].id]}
         />
     );
@@ -22,7 +21,7 @@ export default function CardsContainer(props) {
             </View>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     cardsContainer: {
@@ -31,11 +30,10 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
-    text: {
-        color: "#fff",
-    },
     cardsHolder: {
-        width: 70 + '%',
-        height: 70 + '%',
+        width: "70%",
+        height: "70%",
     },
 });
+
+export default CardsContainer;

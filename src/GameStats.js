@@ -7,13 +7,13 @@ import statsImages from './../assets/statsImages';
 
 import statsInfo from './../data/statsInfo.json';
 
-export default function GameStats(props) {
+const GameStats = props => {
     let count = 0; // used for assigning values to stats
 
-    const stats = Array.from(Array(2 * props.statsCount - 1).keys()).map(i => i % 2 === 0 ? 
+    const stats = Array(2 * props.statsCount - 1).fill(0).map((_, i) => i % 2 === 0 ? 
         <Stat
             key={uuid()} info={statsInfo[count]} maxLevel={props.maxLevel} currLevel={props.statsCurrLevel[count]} 
-            lastLevel={props.statsLastLevel[count]} source={statsImages[count++]} fireAlert={props.fireAlert} update={props.updateStats}  
+            lastLevel={props.statsLastLevel[count]} source={statsImages[count++]} fireAlert={props.fireAlert}
         /> 
         : 
         <SizedBox key={uuid()}/>
@@ -24,7 +24,7 @@ export default function GameStats(props) {
             { stats }
         </View>
     );
-}
+};
 
 const SizedBox = () => <View style={styles.sizedBox}></View>;
 
@@ -42,3 +42,5 @@ const styles = StyleSheet.create({
         width: Dimensions.get("window").width / 50
     },
 });
+
+export default GameStats;

@@ -13,13 +13,13 @@ const interpolationOptions = [
 ];
 const name = "©Turtureanu Cosmin";
 
-export default function About(props) {
+const About = props => {
   const [renders, setRenders] = useState(0);
   const colorAnim = new Animated.Value(0);
   
   Animated.timing(colorAnim, { toValue: 1, duration: 150, useNativeDriver: false }).start(() => setRenders((renders + 1) % interpolationOptions.length));
 
-  const animatedTexts = Array.from(Array(name.length).keys()).map(i => <Animated.Text style={{ color: colorAnim.interpolate({ inputRange: [0, 1], outputRange: interpolationOptions[(renders + i) % interpolationOptions.length] }) }} key={uuid()}>{ name[i] }</Animated.Text>);
+  const animatedTexts = Array(name.length).fill(0).map((_, i) => <Animated.Text style={{ color: colorAnim.interpolate({ inputRange: [0, 1], outputRange: interpolationOptions[(renders + i) % interpolationOptions.length] }) }} key={uuid()}>{ name[i] }</Animated.Text>);
 
   return (
     <SafeAreaView style={styles.about}>
@@ -31,7 +31,7 @@ export default function About(props) {
         </Text>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   about: {
@@ -56,3 +56,5 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
   },
 });
+
+export default About;

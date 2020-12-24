@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
-export default function Timer(props) {
+const Timer = props => {
     return (
         <View style={styles.timer}>
             <Text style={styles.text}>
@@ -9,7 +9,7 @@ export default function Timer(props) {
             </Text>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     timer: {
@@ -23,3 +23,5 @@ const styles = StyleSheet.create({
         fontSize: 16,
     }
 });
+
+export default Timer;

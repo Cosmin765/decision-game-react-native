@@ -1,42 +1,44 @@
-import React from 'react';
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Animated } from 'react-native';
 
 const screen = Dimensions.get("window");
 
 const animDuration = 300;
-const animateScale = (anim, toValue) => Animated.timing(anim, { toValue, duration: animDuration, useNativeDriver: true }).start();
+const animate = (anim, toValue) => Animated.timing(anim, { toValue, duration: animDuration, useNativeDriver: true }).start();
 
-export default function Alert(props) {
-    const scale = new Animated.Value(0.5);
+const Alert = forwardRef((props, ref) => {
+    const [data, setData] = useState(null);
+    
+    const scale = new Animated.Value(0);
 
-    animateScale(scale, 1);
+    animate(scale, 1);
 
     const handleClick = () => {
-        animateScale(scale, 0);
+        animate(scale, 0);
 
-        setTimeout(() => props.fireAlert(null), animDuration);
+        setTimeout(() => setData(null), animDuration);
     };
     
-    const fireAlert = () => {
-      console.log("hello");
-    };
-
-    return (
+    useImperativeHandle(ref, () => ({ fireAlert: data => setData(data) }));
+    
+    if(data) return (
         <Animated.View style={{...styles.alert, transform: [{scale}]}}>
             <Text style={styles.title}>
-                { props.data.title }
+                { data.title }
             </Text>
             <Text style={styles.text}>
-                { props.data.message }
+                { data.message }
             </Text>
-            <TouchableOpacity style={{width:"100%"}} onPress={handleClick}>
+            <TouchableOpacity style={{ width:"100%" }} onPress={handleClick}>
                 <View style={styles.button}>
                     <Text style={{color: "#fff", textAlign: "center"}}> OK </Text>
                 </View>
             </TouchableOpacity>
         </Animated.View>
     );
-}
+
+    return null;
+});
 
 const styles = StyleSheet.create({
     alert: {
@@ -68,3 +70,5 @@ const styles = StyleSheet.create({
         alignSelf: "center",
     },
 });
+
+export default Alert;
