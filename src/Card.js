@@ -52,7 +52,7 @@ const Card = props => {
             <Text style={{ ...styles.decision, ...styles.decisionLeft, opacity: map(posX, 0, screen.width / 8, 0, 1) }}> { props.gameEvent.right.decision || "Da" } </Text>
             <Text style={{ ...styles.decision, ...styles.decisionRight, opacity: map(posX, 0, -screen.width / 8, 0, 1) }}> { props.gameEvent.left.decision || "Nu" } </Text>
             
-            { props.visible ? <VisibleFace gameEvent={props.gameEvent} imgSource={props.image}/> : <Image source={cardIcon} style={styles.img}/> }
+            { props.visible ? <VisibleFace gameEvent={props.gameEvent} imgSource={props.image}/> : <Image source={cardIcon} style={styles.backImg}/> }
         </Animated.View>
     );
 };
@@ -77,22 +77,21 @@ const SizedBox = props => <View style={{height: props.height}}></View>
 
 const styles = StyleSheet.create({
     card: {
-        width: 100 + '%',
-        height: 100 + '%',
+        position: "absolute",
+        width: "100%",
+        height: "100%",
         borderRadius: 30,
         borderStyle: "solid",
-        borderColor: "#000",
         borderWidth: 2,
 
         justifyContent: "center",
         alignItems: "center",
-        position: "absolute",
     },
     decision: {
-        color: "#00ffff",
         position: "absolute",
+        color: "#00ffff",
         top: 0,
-        width: 47 + '%',
+        width: "47%",
         fontSize: 18,
         padding: 25,
     },
@@ -103,16 +102,15 @@ const styles = StyleSheet.create({
     decisionRight: {
         textAlign: "right",
         right: 0,
-
     },
-    img: {
-        width: 100 + '%',
-        height: 70 + '%',
+    backImg: {
+        width: "100%",
+        height: "70%",
         opacity: 0.5,
     },
     visibleFace: {
-        width: 100 + '%',
-        height: 100 + '%',
+        width: "100%",
+        height: "100%",
         alignItems: "center",
         justifyContent: "space-evenly",
     },
@@ -130,7 +128,7 @@ const styles = StyleSheet.create({
     avatar: {
         width: "100%",
         height: 150,
-        resizeMode: "center",
+        resizeMode: "contain",
     },
 });
 

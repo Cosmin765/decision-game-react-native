@@ -81,5 +81,31 @@
       "effect": [-2, -2, 0, 2]
     },
     "id": "crush"
+  },
+  {
+    "q": "Oferta zilei, culegere de mate cu 50% reducere",
+    "name": "Bijnitar",
+    "left": {
+      "decision": "O iau",
+      "effect": [0, 3, -2, 0]
+    },
+    "right": {
+      "decision": "Nu ma intereseaza",
+      "effect": [0, -2, 0, 0]
+    },
+    "id": "bijnitar"
+  },
+  {
+    "q": "Astazi aveti de facut 50 de flotari. Sper ca nu sunteti bolnavi",
+    "name": "Sport",
+    "left": {
+      "decision": "O sa invat la biologie",
+      "effect": [2, 3, 0, -4]
+    },
+    "right": {
+      "decision": "O sa dau proba",
+      "effect": [-2, -2, 0, 4]
+    },
+    "id": "sport"
   }
 ]

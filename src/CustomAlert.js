@@ -23,16 +23,11 @@ const Alert = forwardRef((props, ref) => {
     
     if(data) return (
         <Animated.View style={{...styles.alert, transform: [{scale}]}}>
-            <Text style={styles.title}>
-                { data.title }
-            </Text>
-            <Text style={styles.text}>
-                { data.message }
-            </Text>
-            <TouchableOpacity style={{ width:"100%" }} onPress={handleClick}>
-                <View style={styles.button}>
-                    <Text style={{color: "#fff", textAlign: "center"}}> OK </Text>
-                </View>
+            <Text style={styles.title}> { data.title } </Text>
+            <Text style={styles.text}> { data.message } </Text>
+
+            <TouchableOpacity style={styles.button} onPress={handleClick}>
+                <Text style={{color: "#fff", textAlign: "center"}}> OK </Text>
             </TouchableOpacity>
         </Animated.View>
     );
@@ -57,6 +52,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         paddingHorizontal: 60,
         width: "100%",
+        fontWeight: "bold",
     },
     text: {
         fontSize: 20,
@@ -66,8 +62,7 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: "darkgreen",
         paddingVertical: 10,
-        width: 80 + '%',
-        alignSelf: "center",
+        width: "80%",
     },
 });
 
