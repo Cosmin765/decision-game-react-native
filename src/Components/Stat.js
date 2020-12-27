@@ -24,7 +24,7 @@ const Stat = props => {
 
     return (
         <TouchableWithoutFeedback onPress={() => props.fireAlert({ title, message: description })}>
-            <View style={styles.stat}>
+            <View style={styles.main}>
                 <Animated.View style={{
                     ...styles.fillLevel,
                     height: heightAnim,
@@ -37,7 +37,7 @@ const Stat = props => {
 };
 
 const styles = StyleSheet.create({
-    stat: {
+    main: {
         backgroundColor: "rgb(150, 150, 150)",
         width: statWidth,
         height: statWidth,

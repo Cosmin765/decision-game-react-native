@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, SafeAreaView, Animated } from 'react-native';
 
-import uuid from './uuid';
+import uuid from 'src/uuid';
 
 const interpolationOptions = [
   ["rgb(169, 3, 252)", "rgb(255, 0, 0)"],
@@ -22,7 +22,7 @@ const About = props => {
   const animatedTexts = Array(name.length).fill(0).map((_, i) => <Animated.Text style={{ color: colorAnim.interpolate({ inputRange: [0, 1], outputRange: interpolationOptions[(renders + i) % interpolationOptions.length] }) }} key={uuid()}>{ name[i] }</Animated.Text>);
 
   return (
-    <SafeAreaView style={styles.about}>
+    <SafeAreaView style={styles.main}>
         <Text style={styles.description}>
           {'\t\t\t\t'}Acest joc a fost facut din plictiseala, intentia acestui proiect fiind strict pentru invatarea framework-ului "React Native". Ideea am preluat-o dintr-un joc de pe mobil numit "Lapse". Daca iti place acest tip de joc, iti recomand sa-l incerci. Nu vei regreta :)
         </Text>
@@ -34,7 +34,7 @@ const About = props => {
 };
 
 const styles = StyleSheet.create({
-  about: {
+  main: {
     justifyContent: "center",
     backgroundColor: "rgb(50, 50, 50)",
     height: "100%",

@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Card from './Card';
-import uuid from './uuid';
+import uuid from 'src/uuid';
 
-import images from './../data/characters';
+import images from 'root/data/characters';
 
 const CardsContainer = props => {
 

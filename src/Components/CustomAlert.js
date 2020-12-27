@@ -22,7 +22,7 @@ const Alert = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => ({ fireAlert: data => setData(data) }));
     
     if(data) return (
-        <Animated.View style={{...styles.alert, transform: [{scale}]}}>
+        <Animated.View style={{...styles.main, transform: [{scale}]}}>
             <Text style={styles.title}> { data.title } </Text>
             <Text style={styles.text}> { data.message } </Text>
 
@@ -36,7 +36,7 @@ const Alert = forwardRef((props, ref) => {
 });
 
 const styles = StyleSheet.create({
-    alert: {
+    main: {
         backgroundColor: "#bbb",
         position: "absolute",
         height: screen.height * 0.5,

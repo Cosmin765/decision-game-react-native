@@ -1,14 +1,14 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, SafeAreaView } from 'react-native';
 
-import infoIcon from './../assets/info.png';
+import infoIcon from 'root/assets/info.png';
 
 const StartScreen = props => {
     
     const goTo = name => props.navigation.navigate(name);
 
     return (
-        <SafeAreaView style={styles.startScreen}>
+        <SafeAreaView style={styles.main}>
             <TouchableOpacity onPress={() => goTo("Game")}>
                 <View style={styles.startBtn}>
                     <Text style={styles.btnText}>
@@ -24,7 +24,7 @@ const StartScreen = props => {
 };
 
 const styles = StyleSheet.create({
-    startScreen: {
+    main: {
         width: "100%",
         height: "100%",
         backgroundColor: "darkblue",

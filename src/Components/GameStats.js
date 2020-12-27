@@ -2,10 +2,10 @@ import React from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import Stat from './Stat';
 
-import uuid from './uuid';
-import statsImages from './../assets/statsImages';
+import uuid from 'src/uuid';
 
-import statsInfo from './../data/statsInfo.json';
+import statsImages from 'root/assets/statsImages';
+import statsInfo from 'root/data/statsInfo.json';
 
 const GameStats = props => {
     let count = 0; // used for assigning values to stats
@@ -20,7 +20,7 @@ const GameStats = props => {
     );
 
     return (
-        <View style={styles.gameStats}>
+        <View style={styles.main}>
             { stats }
         </View>
     );
@@ -29,7 +29,7 @@ const GameStats = props => {
 const SizedBox = () => <View style={styles.sizedBox}></View>;
 
 const styles = StyleSheet.create({
-    gameStats: {
+    main: {
         flex: 1,
         backgroundColor: "rgb(50, 50, 50)",
         justifyContent: "center",

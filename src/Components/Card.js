@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Dimensions, Image, Animated } from 'react-native';
-import cardIcon from './../assets/card_icon.png';
+import cardIcon from 'root/assets/card_icon.png';
 
 const screen = Dimensions.get("window");
 
@@ -36,7 +36,7 @@ const Card = props => {
     return (
         <Animated.View 
             style={{
-                ...styles.card,
+                ...styles.main,
                 top: -props.offset, 
                 transform: [
                     { translateX: animInfo.animate ? animInfo.anim : posX - props.offset },
@@ -76,7 +76,7 @@ const VisibleFace = props => {
 const SizedBox = props => <View style={{height: props.height}}></View>
 
 const styles = StyleSheet.create({
-    card: {
+    main: {
         position: "absolute",
         width: "100%",
         height: "100%",
