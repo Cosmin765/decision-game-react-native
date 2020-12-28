@@ -10,14 +10,17 @@ import statsInfo from 'root/data/statsInfo.json';
 const GameStats = props => {
     let count = 0; // used for assigning values to stats
 
-    const stats = Array(2 * props.statsCount - 1).fill(0).map((_, i) => i % 2 === 0 ? 
-        <Stat
-            key={uuid()} info={statsInfo[count]} maxLevel={props.maxLevel} currLevel={props.statsCurrLevel[count]} 
-            lastLevel={props.statsLastLevel[count]} source={statsImages[count++]} fireAlert={props.fireAlert}
-        /> 
-        : 
-        <SizedBox key={uuid()}/>
-    );
+    const getStatsProps = () => ({
+        maxLevel: props.maxLevel,
+        fireAlert: props.fireAlert,
+        navigation: props.navigation,
+        info: statsInfo[count],
+        currLevel: props.statsLevel.current[count],
+        lastLevel: props.statsLevel.last[count],
+        source: statsImages[count++],
+    });
+
+    const stats = Array(2 * props.statsCount - 1).fill(0).map((_, i) => i % 2 === 0 ? <Stat props={getStatsProps()} key={uuid()}/> : <SizedBox key={uuid()}/>);
 
     return (
         <View style={styles.main}>

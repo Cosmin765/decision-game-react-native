@@ -6,14 +6,11 @@ import CardsContainer from 'components/CardsContainer';
 import Timer from 'components/Timer';
 import CustomAlert from 'components/CustomAlert';
 
-const gameEventsInitial = require('root/data/gameEvents.json').sort(() => Math.random() - 0.5);
-
-import { replace } from 'src/navigation';
-
 const Game = props => {
     const maxLevel = 20;
     const statsCount = 4;
 
+    const [gameEventsInitial] = useState(require('root/data/gameEvents.json').sort(() => Math.random() - 0.5));
     const [gameEvents, setGameEvents] = useState(Array.from(gameEventsInitial));
     const [statsLevel, setStatsLevel] = useState({ last: Array(statsCount).fill(0), current: Array(statsCount).fill(maxLevel/2) });
 
@@ -30,9 +27,12 @@ const Game = props => {
 
     const fireAlert = data => alertRef.current.fireAlert(data);
 
+    // TODO
+    // if(!gameEvents.length) console.log("win");
+
     return (
         <SafeAreaView style={styles.main}>
-            <GameStats statsCount={statsCount} maxLevel={maxLevel} statsCurrLevel={statsLevel.current} statsLastLevel={statsLevel.last} fireAlert={fireAlert}/>
+            <GameStats statsCount={statsCount} maxLevel={maxLevel} statsLevel={statsLevel} fireAlert={fireAlert} navigation={props.navigation}/>
             <CardsContainer updateStatsLevel={updateStatsLevel} removeCard={removeCard} gameEvents={gameEvents} cardsCount={gameEvents.length}/>
             
             <Timer passed={passedTime}/>
@@ -40,7 +40,7 @@ const Game = props => {
             <CustomAlert ref={alertRef}/>
 
             {/* TODO: delete this */}
-            <TouchableOpacity onPress={() => replace(props.navigation, "LoseScreen")} style={{backgroundColor: "red", borderRadius: 10, padding: 10, position: "absolute", bottom: 0, left: 0}}>
+            <TouchableOpacity onPress={() => setStatsLevel({last: Array.from(statsLevel.current), current: [1, 1, 0, 1]})} style={{backgroundColor: "red", borderRadius: 10, padding: 10, position: "absolute", bottom: 0, left: 0}}>
                 <Text style={{color: "#fff", fontSize: 30}}>Lose</Text>
             </TouchableOpacity>
 

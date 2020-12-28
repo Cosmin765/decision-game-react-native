@@ -6,13 +6,17 @@ import uuid from 'src/uuid';
 import images from 'root/data/characters';
 
 const CardsContainer = props => {
+    const getCardProps = i => ({
+        offset: i * 3,
+        id: uuid(),
+        gameEvent: props.gameEvents[i],
+        visible: i === props.cardsCount - 1,
+        source: images[props.gameEvents[i].id],
+        updateStatsLevel: props.updateStatsLevel,
+        removeCard: props.removeCard,
+    });
 
-    const cards = Array(props.cardsCount).fill(0).map((_, i) => 
-        <Card 
-            key={uuid()} offset={i * 3} id={uuid()} gameEvent={props.gameEvents[i]} visible={i === props.cardsCount - 1} 
-            updateStatsLevel={props.updateStatsLevel} removeCard={props.removeCard} image={images[props.gameEvents[i].id]}
-        />
-    );
+    const cards = Array(props.cardsCount).fill(0).map((_, i) => <Card key={uuid()} props={getCardProps(i)}/>);
 
     return (
         <View style={styles.cardsContainer}>

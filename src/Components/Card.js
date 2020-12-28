@@ -8,7 +8,9 @@ const map = (x, a, b, c, d) => (x-a)/(b-a)*(d-c)+c;
 const nothing  = () => {};
 const animDuration = 400;
 
-const Card = props => {
+const Card = ({ props }) => {
+    const { offset, id, gameEvent, visible, source, updateStatsLevel, removeCard } = props;
+
     const [posX, setPosX] = useState(0);
     const [animInfo, setAnimInfo] = useState({ animate: false, anim: new Animated.Value(0), toValue: 0 });
 
@@ -16,20 +18,20 @@ const Card = props => {
 
     const rot = animInfo.anim.interpolate({ inputRange: [-screen.width/2, screen.width/2], outputRange: ["-35deg", "35deg"] });
 
-    const handleTouchMove = props.visible ? (e => setPosX(e.nativeEvent.pageX - screen.width/2)) : nothing;
+    const handleTouchMove = visible ? (e => setPosX(e.nativeEvent.pageX - screen.width/2)) : nothing;
 
     const fadeTo = dir => {
-        const option = dir === -1 ? props.gameEvent.left : props.gameEvent.right;
+        const option = dir === -1 ? gameEvent.left : gameEvent.right;
 
         animateFade(dir * 1.1 * screen.width);
 
         setTimeout(() => {
-            props.updateStatsLevel(Array.from(option.effect));
-            props.removeCard();
+            updateStatsLevel(Array.from(option.effect));
+            removeCard();
         }, animDuration);
     };
 
-    const handleTouchEnd = props.visible ? (() => (Math.abs(posX) > screen.width / 4) ? fadeTo(posX < 0 ? -1 : 1) : setPosX(0)) : nothing;
+    const handleTouchEnd = visible ? (() => (Math.abs(posX) > screen.width / 4) ? fadeTo(posX < 0 ? -1 : 1) : setPosX(0)) : nothing;
 
     const animateFade = toValue => setAnimInfo({ animate: true, anim: new Animated.Value(posX), toValue: toValue });
 
@@ -37,43 +39,39 @@ const Card = props => {
         <Animated.View 
             style={{
                 ...styles.main,
-                top: -props.offset, 
+                top: -offset, 
                 transform: [
-                    { translateX: animInfo.animate ? animInfo.anim : posX - props.offset },
+                    { translateX: animInfo.animate ? animInfo.anim : posX - offset },
                     { rotate: animInfo.animate ? rot : map(posX, -screen.width / 2, screen.width / 2, -35, 35) + "deg" },
                 ],
-                backgroundColor: props.visible ? "rgb(148, 33, 0)" : "rgb(99, 22, 0)",
+                backgroundColor: visible ? "rgb(148, 33, 0)" : "rgb(99, 22, 0)",
             }}
             onTouchStart={handleTouchMove}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
         >
 
-            <Text style={{ ...styles.decision, ...styles.decisionLeft, opacity: map(posX, 0, screen.width / 8, 0, 1) }}> { props.gameEvent.right.decision || "Da" } </Text>
-            <Text style={{ ...styles.decision, ...styles.decisionRight, opacity: map(posX, 0, -screen.width / 8, 0, 1) }}> { props.gameEvent.left.decision || "Nu" } </Text>
+            <Text style={{ ...styles.decision, ...styles.decisionLeft, opacity: map(posX, 0, screen.width / 8, 0, 1) }}> { gameEvent.right.decision || "Da" } </Text>
+            <Text style={{ ...styles.decision, ...styles.decisionRight, opacity: map(posX, 0, -screen.width / 8, 0, 1) }}> { gameEvent.left.decision || "Nu" } </Text>
             
-            { props.visible ? <VisibleFace gameEvent={props.gameEvent} imgSource={props.image}/> : <Image source={cardIcon} style={styles.backImg}/> }
+            { visible ? <VisibleFace gameEvent={gameEvent} source={source}/> : <Image source={cardIcon} style={styles.backImg}/> }
         </Animated.View>
     );
 };
 
-const VisibleFace = props => {
+const VisibleFace = ({ gameEvent, source }) => {
     return (
         <View style={styles.visibleFace}>
             <SizedBox height={"20%"}/>
-            <Text 
-                style={styles.question}
+            <Text style={styles.question}> " { gameEvent.q } " </Text>
 
-            > " { props.gameEvent.q } " </Text>
-            <Image source={props.imgSource} style={styles.avatar}/>
-            <Text
-                style={styles.name}
-            > { props.gameEvent.name } </Text>
+            <Image source={source} style={styles.avatar}/>
+            <Text style={styles.name}> { gameEvent.name } </Text>
         </View>
     );
 };
 
-const SizedBox = props => <View style={{height: props.height}}></View>
+const SizedBox = ({ height }) => <View style={{ height }}></View>
 
 const styles = StyleSheet.create({
     main: {

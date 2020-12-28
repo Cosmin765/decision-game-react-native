@@ -1,36 +1,46 @@
 import React from 'react';
 import { StyleSheet, View, Dimensions, Image, Animated, TouchableWithoutFeedback } from 'react-native';
 
+import { replace } from 'src/navigation';
+
 const map = (x, a, b, c, d) => (x - a) / (b - a) * (d - c) + c;
 
 const screen = Dimensions.get("window");
 const statWidth = screen.width / 8;
+const animationDuration = 1500;
 
-const Stat = props => {
-    const heightAnim = new Animated.Value(map(props.lastLevel, 0, props.maxLevel, 0, statWidth));
-    const colorAnim = props.currLevel === props.lastLevel ? new Animated.Value(1) : new Animated.Value(0);
+const handleLose = (navigation, data) => setTimeout(() => replace(navigation, "LoseScreen", data), animationDuration);
+
+const Stat = ({ props }) => {
+    const { maxLevel, fireAlert, navigation, currLevel, lastLevel, source } = props;
+
+    const heightAnim = new Animated.Value(map(lastLevel, 0, maxLevel, 0, statWidth));
+    const colorAnim = currLevel === lastLevel ? new Animated.Value(1) : new Animated.Value(0);
+    
     const { title, description } = props.info;
     
-    const levelHasIncreased = props.currLevel > props.lastLevel;
+    const levelHasIncreased = currLevel > lastLevel;
 
-    Animated.timing(colorAnim, { toValue: 1, duration: 1500, useNativeDriver: false }).start();
+    Animated.timing(colorAnim, { toValue: 1, duration: animationDuration, useNativeDriver: false }).start();
 
     const color = colorAnim.interpolate({
         inputRange: [0, 1],
         outputRange: levelHasIncreased ? ['rgb(0, 255, 0)', 'rgb(255, 255, 255)'] : ['rgb(255, 0, 0)', 'rgb(255, 255, 255)']
     });
 
-    Animated.timing(heightAnim, { toValue: map(props.currLevel, 0, props.maxLevel, 0, statWidth), duration: 1000, useNativeDriver: false }).start();
+    Animated.timing(heightAnim, { toValue: map(currLevel, 0, maxLevel, 0, statWidth), duration: 1000, useNativeDriver: false }).start();
+
+    if(currLevel <= 0) handleLose(navigation, { title, source });
 
     return (
-        <TouchableWithoutFeedback onPress={() => props.fireAlert({ title, message: description })}>
+        <TouchableWithoutFeedback onPress={() => fireAlert({ title, message: description })}>
             <View style={styles.main}>
                 <Animated.View style={{
                     ...styles.fillLevel,
                     height: heightAnim,
                     backgroundColor: color 
                 }}></Animated.View>
-                <Image source={props.source} style={styles.image}/>
+                <Image source={source} style={styles.image}/>
             </View>
         </TouchableWithoutFeedback>
     );
