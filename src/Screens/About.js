@@ -54,6 +54,10 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontStyle: "italic",
     letterSpacing: 2,
+
+    textShadowColor: "red",
+    textShadowOffset: {width: 2, height: -1},
+    textShadowRadius: 5,
   },
 });
 

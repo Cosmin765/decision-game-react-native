@@ -6,6 +6,8 @@ import CardsContainer from 'components/CardsContainer';
 import Timer from 'components/Timer';
 import CustomAlert from 'components/CustomAlert';
 
+import { replace } from 'src/navigation';
+
 const Game = props => {
     const maxLevel = 20;
     const statsCount = 4;
@@ -27,8 +29,14 @@ const Game = props => {
 
     const fireAlert = data => alertRef.current.fireAlert(data);
 
-    // TODO
-    // if(!gameEvents.length) console.log("win");
+    const handleWin = () => {
+        replace(props.navigation, "WinScreen");
+    };
+
+    if(!gameEvents.length) {
+        // win
+        handleWin();
+    }
 
     return (
         <SafeAreaView style={styles.main}>
@@ -42,6 +50,10 @@ const Game = props => {
             {/* TODO: delete this */}
             <TouchableOpacity onPress={() => setStatsLevel({last: Array.from(statsLevel.current), current: [1, 1, 0, 1]})} style={{backgroundColor: "red", borderRadius: 10, padding: 10, position: "absolute", bottom: 0, left: 0}}>
                 <Text style={{color: "#fff", fontSize: 30}}>Lose</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={handleWin} style={{backgroundColor: "rgb(0, 255, 0)", borderRadius: 10, padding: 10, position: "absolute", bottom: 0, right: 0}}>
+                <Text style={{color: "#000", fontSize: 30}}>Win</Text>
             </TouchableOpacity>
 
         </SafeAreaView>
