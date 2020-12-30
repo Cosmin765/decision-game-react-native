@@ -8,6 +8,8 @@ const map = (x, a, b, c, d) => (x-a)/(b-a)*(d-c)+c;
 const nothing  = () => {};
 const animDuration = 400;
 
+let count = 0;
+
 const Card = ({ props }) => {
     const { offset, id, gameEvent, visible, source, updateStatsLevel, removeCard } = props;
 
@@ -18,7 +20,7 @@ const Card = ({ props }) => {
 
     const rot = animInfo.anim.interpolate({ inputRange: [-screen.width/2, screen.width/2], outputRange: ["-35deg", "35deg"] });
 
-    const handleTouchMove = visible ? (e => setPosX(e.nativeEvent.pageX - screen.width/2)) : nothing;
+    const handleTouchMove = visible ? (e => count++ % 2 === 0 ? setPosX(e.nativeEvent.pageX - screen.width/2) : nothing()) : nothing;
 
     const fadeTo = dir => {
         const option = dir === -1 ? gameEvent.left : gameEvent.right;
