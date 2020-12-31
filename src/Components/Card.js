@@ -2,12 +2,7 @@ import React, { useRef } from 'react';
 import { StyleSheet, View, Text, Dimensions, Image, Animated, PanResponder } from 'react-native';
 
 const screen = Dimensions.get("window");
-
-const map = (x, a, b, c, d) => (x-a)/(b-a)*(d-c)+c;
-const nothing  = () => {};
-const animDuration = 400;
-
-let count = 0;
+const animDuration = 600;
 
 const Card = props => {
     const { gameEvent, source, updateStatsLevel, removeCard } = props;
@@ -21,23 +16,28 @@ const Card = props => {
         right: pos.x.interpolate({ inputRange: [-screen.width/8, 0], outputRange: [1, 0] })
     };
 
-    // let posX = 0;
+    const resetPos = () => Animated.spring(pos, { toValue: { x: 0, y: 0 }, useNativeDriver: false, mass: 0.7 }).start();
 
-    // pos.x.addListener(({ x }) => posX = x);
+    const fadeTo = dir => {
+        const option = dir === -1 ? gameEvent.left : gameEvent.right;
+
+        Animated.timing(pos, { toValue: { x: dir * 1.1 * screen.width, y: 0 }, useNativeDriver: false, duration: animDuration }).start();
+
+        setTimeout(() => {
+            updateStatsLevel(Array.from(option.effect));
+            removeCard();
+        }, animDuration);
+    };
 
     const panResponder = useRef(
         PanResponder.create({
             onStartShouldSetPanResponder : () => true,
-            onPanResponderMove: Animated.event([null,{ //Step 3
-                dx : pos.x,
-                dy : pos.y
-            }], { useNativeDriver: false }),
+            onPanResponderMove: Animated.event([null, { dx : pos.x, dy : pos.y }], { useNativeDriver: false }),
             onPanResponderRelease: e => {
-                const x = e.nativeEvent.pageX;
+                const x = e.nativeEvent.pageX - screen.width / 2;
 
-                // if(Math.abs(x) > screen.width / 4) fadeTo();
-                // else 
-            } //Step 4
+                (Math.abs(x) > screen.width / 3) ? fadeTo(x > 0 ? 1 : -1) : resetPos();
+            }
         })
     ).current;
     

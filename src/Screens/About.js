@@ -17,7 +17,7 @@ const About = props => {
   const [renders, setRenders] = useState(0);
   const colorAnim = new Animated.Value(0);
   
-  Animated.timing(colorAnim, { toValue: 1, duration: 300, useNativeDriver: false }).start(() => setRenders((renders + 1) % interpolationOptions.length));
+  Animated.timing(colorAnim, { toValue: 1, duration: 400, useNativeDriver: false }).start(() => setRenders((renders + 1) % interpolationOptions.length));
 
   const animatedTexts = Array(name.length).fill(0).map((_, i) => <Animated.Text style={{ color: colorAnim.interpolate({ inputRange: [0, 1], outputRange: interpolationOptions[(renders + i) % interpolationOptions.length] }) }} key={uuid()}>{ name[i] }</Animated.Text>);
 

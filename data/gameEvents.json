@@ -133,5 +133,18 @@
       "effect": [-2, 0, 0, 2]
     },
     "id": "bff"
+  },
+  {
+    "q": "Ce functie a ADN reprezinta replicatia conservativa?",
+    "name": "Doamna de biologie",
+    "left": {
+      "decision": "Autocatalitica",
+      "effect": [0, 4, 0, 0]
+    },
+    "right": {
+      "decision": "Heterocatalitica",
+      "effect": [0, -4, 0, 0]
+    },
+    "id": "biologie"
   }
 ]
