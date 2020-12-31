@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, Dimensions, Image, Animated } from 'react-native';
-import cardIcon from 'root/assets/card_icon.png';
+import React, { useRef } from 'react';
+import { StyleSheet, View, Text, Dimensions, Image, Animated, PanResponder } from 'react-native';
 
 const screen = Dimensions.get("window");
 
@@ -10,66 +9,62 @@ const animDuration = 400;
 
 let count = 0;
 
-const Card = ({ props }) => {
-    const { offset, id, gameEvent, visible, source, updateStatsLevel, removeCard } = props;
+const Card = props => {
+    const { gameEvent, source, updateStatsLevel, removeCard } = props;
 
-    const [posX, setPosX] = useState(0);
-    const [animInfo, setAnimInfo] = useState({ animate: false, anim: new Animated.Value(0), toValue: 0 });
+    const pos = useRef(new Animated.ValueXY()).current;
+    
+    const rot = pos.x.interpolate({ inputRange: [-screen.width/2, screen.width/2], outputRange: ["-35deg", "35deg"] });
 
-    Animated.timing(animInfo.anim, { toValue: animInfo.toValue, duration: animDuration, useNativeDriver: true }).start();
-
-    const rot = animInfo.anim.interpolate({ inputRange: [-screen.width/2, screen.width/2], outputRange: ["-35deg", "35deg"] });
-
-    const handleTouchMove = visible ? (e => count++ % 2 === 0 ? setPosX(e.nativeEvent.pageX - screen.width/2) : nothing()) : nothing;
-
-    const fadeTo = dir => {
-        const option = dir === -1 ? gameEvent.left : gameEvent.right;
-
-        animateFade(dir * 1.1 * screen.width);
-
-        setTimeout(() => {
-            updateStatsLevel(Array.from(option.effect));
-            removeCard();
-        }, animDuration);
+    const opacity = {
+        left: pos.x.interpolate({ inputRange: [0, screen.width/8], outputRange: [0, 1] }),
+        right: pos.x.interpolate({ inputRange: [-screen.width/8, 0], outputRange: [1, 0] })
     };
 
-    const handleTouchEnd = visible ? (() => (Math.abs(posX) > screen.width / 4) ? fadeTo(posX < 0 ? -1 : 1) : setPosX(0)) : nothing;
+    // let posX = 0;
 
-    const animateFade = toValue => setAnimInfo({ animate: true, anim: new Animated.Value(posX), toValue: toValue });
+    // pos.x.addListener(({ x }) => posX = x);
+
+    const panResponder = useRef(
+        PanResponder.create({
+            onStartShouldSetPanResponder : () => true,
+            onPanResponderMove: Animated.event([null,{ //Step 3
+                dx : pos.x,
+                dy : pos.y
+            }], { useNativeDriver: false }),
+            onPanResponderRelease: e => {
+                const x = e.nativeEvent.pageX;
+
+                // if(Math.abs(x) > screen.width / 4) fadeTo();
+                // else 
+            } //Step 4
+        })
+    ).current;
+    
 
     return (
         <Animated.View 
+            {...panResponder.panHandlers}
             style={{
                 ...styles.main,
-                top: -offset, 
                 transform: [
-                    { translateX: animInfo.animate ? animInfo.anim : posX - offset },
-                    { rotate: animInfo.animate ? rot : map(posX, -screen.width / 2, screen.width / 2, -35, 35) + "deg" },
+                    { translateX: pos.x },
+                    { rotate: rot },
                 ],
-                backgroundColor: visible ? "rgb(148, 33, 0)" : "rgb(99, 22, 0)",
             }}
-            onTouchStart={handleTouchMove}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
         >
 
-            <Text style={{ ...styles.decision, ...styles.decisionLeft, opacity: map(posX, 0, screen.width / 8, 0, 1) }}> { gameEvent.right.decision || "Da" } </Text>
-            <Text style={{ ...styles.decision, ...styles.decisionRight, opacity: map(posX, 0, -screen.width / 8, 0, 1) }}> { gameEvent.left.decision || "Nu" } </Text>
+            <Animated.Text style={{ ...styles.decision, ...styles.decisionLeft, opacity: opacity.left }}> { gameEvent.right.decision || "Da" } </Animated.Text>
+            <Animated.Text style={{ ...styles.decision, ...styles.decisionRight, opacity: opacity.right }}> { gameEvent.left.decision || "Nu" } </Animated.Text>
             
-            { visible ? <VisibleFace gameEvent={gameEvent} source={source}/> : <Image source={cardIcon} style={styles.backImg}/> }
+            <View style={styles.visibleFace}>
+                <SizedBox height={"20%"}/>
+                <Text style={styles.question}> " { gameEvent.q } " </Text>
+
+                <Image source={source} style={styles.avatar}/>
+                <Text style={styles.name}> { gameEvent.name } </Text>
+            </View>
         </Animated.View>
-    );
-};
-
-const VisibleFace = ({ gameEvent, source }) => {
-    return (
-        <View style={styles.visibleFace}>
-            <SizedBox height={"20%"}/>
-            <Text style={styles.question}> " { gameEvent.q } " </Text>
-
-            <Image source={source} style={styles.avatar}/>
-            <Text style={styles.name}> { gameEvent.name } </Text>
-        </View>
     );
 };
 
@@ -86,6 +81,7 @@ const styles = StyleSheet.create({
 
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: "rgb(148, 33, 0)",
     },
     decision: {
         position: "absolute",
@@ -102,11 +98,6 @@ const styles = StyleSheet.create({
     decisionRight: {
         textAlign: "right",
         right: 0,
-    },
-    backImg: {
-        width: "100%",
-        height: "70%",
-        opacity: 0.5,
     },
     visibleFace: {
         width: "100%",

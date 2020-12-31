@@ -107,5 +107,31 @@
       "effect": [-2, -2, 0, 4]
     },
     "id": "sport"
+  },
+  {
+    "q": "Am auzit ca ai copiat la mate. Zi-mi cine a mai facut-o si te scap",
+    "name": "Doamna Director",
+    "left": {
+      "decision": "Gigel si cu Maria",
+      "effect": [0, 0, 0, -4]
+    },
+    "right": {
+      "decision": "Doar eu am copiat",
+      "effect": [0, -4, 0, 2]
+    },
+    "id": "directoare"
+  },
+  {
+    "q": "Vrei sa jucam niste PUBG?",
+    "name": "Cel mai bun prieten",
+    "left": {
+      "decision": "",
+      "effect": [2, 2, 0, -4]
+    },
+    "right": {
+      "decision": "",
+      "effect": [-2, 0, 0, 2]
+    },
+    "id": "bff"
   }
 ]

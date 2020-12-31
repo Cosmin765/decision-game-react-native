@@ -23,11 +23,9 @@ const dialogues = [
 const animationDuration = 300;
 const animate = (anim, toValue) => Animated.timing(anim, { toValue, duration: animationDuration, useNativeDriver: true }).start();
 
-const random = (min, max) => Math.random() * (max - min) + min;
-
 const confettiWidth = screen.width / 3;
 
-const confettiElements = Array(10).fill(0).map((_, i) => <Confetti key={uuid()} width={confettiWidth} y={random(-100, 100)} x={random(0, screen.width)} duration={random(2000, 3000)}/>);
+const confettiElements = Array(10).fill(0).map((_, i) => <Confetti key={uuid()} width={confettiWidth}/>);
 
 const WinScreen = props => {
     const [dialogueCount, setDialogueCount] = useState(0);

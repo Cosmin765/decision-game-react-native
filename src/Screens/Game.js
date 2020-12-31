@@ -17,8 +17,8 @@ const Game = props => {
     const [statsLevel, setStatsLevel] = useState({ last: Array(statsCount).fill(0), current: Array(statsCount).fill(maxLevel/2) });
 
     const removeCard = () => {
-        gameEvents.splice(gameEvents.length - 1, 1);
-        setGameEvents(Array.from(gameEvents));
+        if(gameEvents.length === 1) handleWin();
+        else setGameEvents(Array.from(gameEvents.slice(1)));
     };
     
     const updateStatsLevel = effect => setStatsLevel({ last: Array.from(statsLevel.current), current: statsLevel.current.map((level, index) => level + effect[index]) });
@@ -29,19 +29,12 @@ const Game = props => {
 
     const fireAlert = data => alertRef.current.fireAlert(data);
 
-    const handleWin = () => {
-        replace(props.navigation, "WinScreen");
-    };
-
-    if(!gameEvents.length) {
-        // win
-        handleWin();
-    }
+    const handleWin = () => setTimeout(() => replace(props.navigation, "WinScreen"), 400);
 
     return (
         <SafeAreaView style={styles.main}>
             <GameStats statsCount={statsCount} maxLevel={maxLevel} statsLevel={statsLevel} fireAlert={fireAlert} navigation={props.navigation}/>
-            <CardsContainer updateStatsLevel={updateStatsLevel} removeCard={removeCard} gameEvents={gameEvents} cardsCount={gameEvents.length}/>
+            <CardsContainer updateStatsLevel={updateStatsLevel} removeCard={removeCard} gameEvent={gameEvents[0]}/>
             
             <Timer passed={passedTime}/>
 

@@ -5,13 +5,15 @@ import source from 'root/assets/confetti.png';
 
 const screen = Dimensions.get("window");
 
-const Confetti = props => {
-    const posY = new Animated.Value(-150 + props.y);
+const random = (min, max) => Math.random() * (max - min) + min;
 
-    Animated.timing(posY, { toValue: screen.height + 100, duration: props.duration, useNativeDriver: false }).start();
+const Confetti = props => {
+    const posY = new Animated.Value(-150 + random(-100, 100));
+
+    Animated.timing(posY, { toValue: screen.height + 100, duration: random(2000, 3000), useNativeDriver: false }).start();
 
     return (
-        <Animated.View style={{...styles.main, top: posY, left: props.x}} pointerEvents="none">
+        <Animated.View style={{...styles.main, top: posY, left: random(0, screen.width)}} pointerEvents="none">
             <Image source={source} style={{ ...styles.image, width: props.width, height: props.width }}/>
         </Animated.View>
     );
