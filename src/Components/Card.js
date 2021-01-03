@@ -49,6 +49,7 @@ const Card = props => {
                 ...styles.main,
                 transform: [
                     { translateX: pos.x },
+                    { translateY: pos.y },
                     { rotate: rot },
                 ],
             }}
