@@ -5,7 +5,7 @@ const screen = Dimensions.get("window");
 const animDuration = 600;
 
 const Card = props => {
-    const { gameEvent, source, updateStatsLevel, removeCard } = props;
+    const { gameEvent, source, updateStatsLevel } = props;
 
     const pos = useRef(new Animated.ValueXY()).current;
     
@@ -23,20 +23,18 @@ const Card = props => {
 
         Animated.timing(pos, { toValue: { x: dir * 1.1 * screen.width, y: 0 }, useNativeDriver: false, duration: animDuration }).start();
 
-        setTimeout(() => {
-            updateStatsLevel(Array.from(option.effect));
-            removeCard();
-        }, animDuration);
+        setTimeout(() => updateStatsLevel(option.effect), animDuration);
     };
 
     const panResponder = useRef(
         PanResponder.create({
-            onStartShouldSetPanResponder : () => true,
+            onStartShouldSetPanResponder : () => props.visible !== false, // doing this because if it's undefined, it's automatically visible
             onPanResponderMove: Animated.event([null, { dx : pos.x, dy : pos.y }], { useNativeDriver: false }),
             onPanResponderRelease: e => {
                 const x = e.nativeEvent.pageX - screen.width / 2;
 
-                (Math.abs(x) > screen.width / 3) ? fadeTo(x > 0 ? 1 : -1) : resetPos();
+                if(Math.abs(x) > screen.width / 3) fadeTo(x > 0 ? 1 : -1);
+                else resetPos();
             }
         })
     ).current;

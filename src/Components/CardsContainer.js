@@ -8,12 +8,19 @@ import cardIcon from 'root/assets/card_icon.png';
 import images from 'root/data/characters';
 
 const CardsContainer = props => {
+    let cards = null;
+
+    if(props.gameEvent.length)
+        cards = Array(props.gameEvent.length).fill(0).map((_, i) => 
+            <Card key={uuid()} source={images[props.gameEvent[i].id]} {...props} gameEvent={props.gameEvent[i]} visible={i === 0} />
+        ).reverse();
+
     return (
         <View style={styles.cardsContainer}>
             <View style={styles.cardsHolder}>
                 <CardIllusion />
 
-                <Card key={uuid()} source={images[props.gameEvent.id]} {...props} />
+                { cards || <Card key={uuid()} source={images[props.gameEvent.id]} {...props} /> }
             </View>
         </View>
     );

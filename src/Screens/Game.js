@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { StyleSheet , SafeAreaView, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet , SafeAreaView, TouchableOpacity, Text, CameraRoll } from 'react-native';
 
 import GameStats from 'components/GameStats';
 import CardsContainer from 'components/CardsContainer';
@@ -12,16 +12,26 @@ const Game = props => {
     const maxLevel = 20;
     const statsCount = 4;
 
-    const [gameEventsInitial] = useState(require('root/data/gameEvents.json').sort(() => Math.random() - 0.5));
-    const [gameEvents, setGameEvents] = useState(Array.from(gameEventsInitial));
-    const [statsLevel, setStatsLevel] = useState({ last: Array(statsCount).fill(0), current: Array(statsCount).fill(maxLevel/2) });
+    const gameEventsInitial = useRef(require('root/data/gameEvents.json').sort(() => Math.random() - 0.5)).current;
 
-    const removeCard = () => {
-        if(gameEvents.length === 1) handleWin();
-        else setGameEvents(Array.from(gameEvents.slice(1)));
-    };
+    const [state, setState] = useState({
+        gameEvents: Array.from(gameEventsInitial),
+        statsLevel: { last: Array(statsCount).fill(0), current: Array(statsCount).fill(maxLevel/2) }
+    });
+
+    let { gameEvents, statsLevel } = state;
     
-    const updateStatsLevel = effect => setStatsLevel({ last: Array.from(statsLevel.current), current: statsLevel.current.map((level, index) => level + effect[index]) });
+    const updateStatsLevel = effect => {
+        
+        if(gameEvents[0].length > 1) gameEvents.splice(0, 1, gameEvents[0].slice(1));
+        else {
+            if(gameEvents.length === 1) return handleWin();
+            
+            gameEvents = gameEvents.slice(1);
+        }
+
+        setState({ gameEvents, statsLevel: { last: statsLevel.current, current: statsLevel.current.map((level, index) => level + effect[index]) } });
+    };
     
     const passedTime = Math.round(365 / gameEventsInitial.length * (gameEventsInitial.length - gameEvents.length)); // for the timer
 
@@ -34,7 +44,7 @@ const Game = props => {
     return (
         <SafeAreaView style={styles.main}>
             <GameStats statsCount={statsCount} maxLevel={maxLevel} statsLevel={statsLevel} fireAlert={fireAlert} navigation={props.navigation}/>
-            <CardsContainer updateStatsLevel={updateStatsLevel} removeCard={removeCard} gameEvent={gameEvents[0]}/>
+            <CardsContainer updateStatsLevel={updateStatsLevel} gameEvent={gameEvents[0]}/>
             
             <Timer passed={passedTime}/>
 
