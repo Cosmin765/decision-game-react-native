@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Animated, Dimensions, Image } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Animated, Dimensions, Image, SafeAreaView } from 'react-native';
 import uuid from 'src/uuid'; 
 
 import Confetti from 'components/Confetti';
@@ -25,7 +25,7 @@ const animate = (anim, toValue) => Animated.timing(anim, { toValue, duration: an
 
 const confettiWidth = screen.width / 3;
 
-const confettiElements = Array(10).fill(0).map((_, i) => <Confetti key={uuid()} width={confettiWidth}/>);
+const confettiElements = Array(10).fill(0).map(() => <Confetti key={uuid()} width={confettiWidth}/>);
 
 const WinScreen = props => {
     const [dialogueCount, setDialogueCount] = useState(0);
@@ -44,7 +44,7 @@ const WinScreen = props => {
     };
 
     return (
-        <View style={styles.main}>
+        <SafeAreaView style={styles.main}>
             <Animated.View style={{ ...styles.dialogueContainer, transform: [ { translateX: slideAnim } ] }}>
                 { dialogueEl }
             </Animated.View>
@@ -56,7 +56,7 @@ const WinScreen = props => {
             </TouchableOpacity>
 
             { dialogueCount === dialogues.length - 2 ? confettiElements : null }
-        </View>
+        </SafeAreaView>
     );
 };
 

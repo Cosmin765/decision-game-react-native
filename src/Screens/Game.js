@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { StyleSheet , SafeAreaView, TouchableOpacity, Text, CameraRoll } from 'react-native';
+import { StyleSheet , SafeAreaView, TouchableOpacity, Text } from 'react-native';
 
 import GameStats from 'components/GameStats';
 import CardsContainer from 'components/CardsContainer';
@@ -7,10 +7,13 @@ import Timer from 'components/Timer';
 import CustomAlert from 'components/CustomAlert';
 
 import { replace } from 'src/navigation';
+import { getItem } from 'src/storage';
 
 const Game = props => {
     const maxLevel = 20;
     const statsCount = 4;
+
+    getItem('username').then(name => console.log(name));
 
     const gameEventsInitial = useRef(require('root/data/gameEvents.json').sort(() => Math.random() - 0.5)).current;
 
@@ -51,7 +54,7 @@ const Game = props => {
             <CustomAlert ref={alertRef}/>
 
             {/* TODO: delete this */}
-            <TouchableOpacity onPress={() => setStatsLevel({last: Array.from(statsLevel.current), current: [1, 1, 0, 1]})} style={{backgroundColor: "red", borderRadius: 10, padding: 10, position: "absolute", bottom: 0, left: 0}}>
+            <TouchableOpacity onPress={() => setState({statsLevel: {last: Array.from(statsLevel.current), current: [1, 1, 0, 1]}, gameEvents})} style={{backgroundColor: "red", borderRadius: 10, padding: 10, position: "absolute", bottom: 0, left: 0}}>
                 <Text style={{color: "#fff", fontSize: 30}}>Lose</Text>
             </TouchableOpacity>
 

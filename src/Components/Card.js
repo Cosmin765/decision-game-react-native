@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { StyleSheet, View, Text, Dimensions, Image, Animated, PanResponder } from 'react-native';
+import names from 'root/data/names.json';
 
 const screen = Dimensions.get("window");
 const animDuration = 600;
@@ -23,12 +24,14 @@ const Card = props => {
 
         Animated.timing(pos, { toValue: { x: dir * 1.1 * screen.width, y: 0 }, useNativeDriver: false, duration: animDuration }).start();
 
-        setTimeout(() => updateStatsLevel(option.effect), animDuration);
+        setTimeout(() => updateStatsLevel(option.effect || Array(4).fill(0)), animDuration);
     };
+
+    const visible = props.visible !== false;
 
     const panResponder = useRef(
         PanResponder.create({
-            onStartShouldSetPanResponder : () => props.visible !== false, // doing this because if it's undefined, it's automatically visible
+            onStartShouldSetPanResponder : () => visible, // doing this because if it's undefined, it's automatically visible
             onPanResponderMove: Animated.event([null, { dx : pos.x, dy : pos.y }], { useNativeDriver: false }),
             onPanResponderRelease: e => {
                 const x = e.nativeEvent.pageX - screen.width / 2;
@@ -39,6 +42,7 @@ const Card = props => {
         })
     ).current;
     
+    if(!visible) return null;
 
     return (
         <Animated.View 
@@ -53,15 +57,15 @@ const Card = props => {
             }}
         >
 
-            <Animated.Text style={{ ...styles.decision, ...styles.decisionLeft, opacity: opacity.left }}> { gameEvent.right.decision || "Da" } </Animated.Text>
-            <Animated.Text style={{ ...styles.decision, ...styles.decisionRight, opacity: opacity.right }}> { gameEvent.left.decision || "Nu" } </Animated.Text>
+            <Animated.Text style={{ ...styles.decision, ...styles.decisionLeft, opacity: opacity.left }}> { gameEvent.left ? (gameEvent.right.decision || "Da") : "..." } </Animated.Text>
+            <Animated.Text style={{ ...styles.decision, ...styles.decisionRight, opacity: opacity.right }}> { gameEvent.right ? (gameEvent.left.decision || "Nu") : "..." } </Animated.Text>
             
             <View style={styles.visibleFace}>
                 <SizedBox height={"20%"}/>
                 <Text style={styles.question}> " { gameEvent.q } " </Text>
 
                 <Image source={source} style={styles.avatar}/>
-                <Text style={styles.name}> { gameEvent.name } </Text>
+                <Text style={styles.name}> { names[gameEvent.id] } </Text>
             </View>
         </Animated.View>
     );

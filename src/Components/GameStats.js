@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
-import Stat from './Stat';
+import Stat from 'components/Stat';
 
 import uuid from 'src/uuid';
 

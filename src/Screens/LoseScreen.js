@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Image, Dimensions, TouchableOpacity, SafeAreaView } from 'react-native';
 
 import { replace } from 'src/navigation';
 
@@ -19,7 +19,7 @@ const LoseScreen = props => {
     const handlePress = () => replace(props.navigation, "Game");
 
     return (
-        <View style={styles.main}>
+        <SafeAreaView style={styles.main}>
             <View style={styles.stat}> 
                 <Image source={info.source} style={styles.image}/> 
             </View>
@@ -31,7 +31,7 @@ const LoseScreen = props => {
             <TouchableOpacity style={styles.btn} onPress={handlePress}>
                 <Text style={{ color: "#000", fontSize: 30 }}> Restart </Text>
             </TouchableOpacity>
-        </View>
+        </SafeAreaView>
     );
 };
 

@@ -1,5 +1,5 @@
 import React, { useState, forwardRef, useImperativeHandle } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Animated } from 'react-native';
+import { Text, StyleSheet, Dimensions, TouchableOpacity, Animated } from 'react-native';
 
 const screen = Dimensions.get("window");
 
