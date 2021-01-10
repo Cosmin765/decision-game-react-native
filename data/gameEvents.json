@@ -1,6 +1,6 @@
 [
   {
-    "q": "Ti-am adus testul, dar nota nu este una chiar buna. Doresti sa mai inveti si sa dai testul din nou?",
+    "q": "$username , ti-am adus testul, dar nota nu este una chiar buna. Doresti sa mai inveti si sa dai testul din nou?",
     "left": {
       "effect": [4, -4, 0, 0]
     },
@@ -46,12 +46,12 @@
     "id": "engleza"
   },
   {
-    "q": "*Grupul tau de prieteni iti inmaneaza o tigara* Incearca si tu",
+    "q": "*Grupul tau de prieteni iti inmaneaza o tigara* - Incearca si tu",
     "left": {
       "effect": [0, 2, 2, -2]
     },
     "right": {
-      "effect": [-1, -4, -4, 8]
+      "effect": [-2, -3, -3, 6]
     },
     "id": "group"
   },
@@ -79,11 +79,11 @@
     "q": "Oferta zilei, culegere de mate cu 50% reducere",
     "left": {
       "decision": "O iau",
-      "effect": [0, 3, -2, 0]
+      "effect": [0, 3, -4, 0]
     },
     "right": {
       "decision": "Nu ma intereseaza",
-      "effect": [0, -2, 0, 0]
+      "effect": [0, -3, 0, 0]
     },
     "id": "bijnitar"
   },
@@ -100,16 +100,62 @@
     "id": "sport"
   },
   {
-    "q": "Vrei sa jucam niste PUBG?",
+    "q": "$username , vrei sa jucam niste PUBG?",
     "left": {
-      "decision": "",
-      "effect": [2, 2, 0, -4]
+      "effect": [1, 1, 0, -4]
     },
     "right": {
-      "decision": "",
-      "effect": [-2, 0, 0, 2]
+      "effect": [-3, 0, 0, 3]
     },
     "id": "bff"
+  },
+  {
+    "q": "* Unii colegi au spart un geam *",
+    "left": {
+      "decision": "O sa ii parasc directoarei",
+      "effect": [0, 6, 0, -4]
+    },
+    "right": {
+      "decision": "Nu e treaba mea",
+      "effect": [0, 0, 0, 2]
+    },
+    "id": "group"
+  },
+  {
+    "q": "50 de lei daca vrei sa te las inauntru",
+    "left": {
+      "decision": "Nu o sa vezi",
+      "effect": [0, -6, 0, 0]
+    },
+    "right": {
+      "decision": "Ok...",
+      "effect": [0, 0, -6, 0]
+    },
+    "id": "portar"
+  },
+  {
+    "q": "Vrei sa imi vinzi culegerea de matematica?",
+    "left": {
+      "decision": "Nu e de vanzare",
+      "effect": [0, 0, 0, 0]
+    },
+    "right": {
+      "decision": "Normal ca da",
+      "effect": [0, -6, 6, 0]
+    },
+    "id": "tocilara"
+  },
+  {
+    "q": "Poate ar fi cazul sa mai studiez putin...",
+    "left": {
+      "decision": "Nah...",
+      "effect": [4, -6, 0, 0]
+    },
+    "right": {
+      "decision": "Cred ca e o idee buna",
+      "effect": [-6, 4, 0, 0]
+    },
+    "id": ""
   },
   [
     {
@@ -117,7 +163,7 @@
       "id": "biologie"
     },
     {
-      "q": "La cine cade catalogul... $name !",
+      "q": "La cine cade catalogul... $username !",
       "id": "biologie"
     },
     {
@@ -149,6 +195,42 @@
         "effect": [0, -4, 0, 2]
       },
       "id": "directoare"
+    }
+  ],
+  [
+    {
+      "q": "... apartinand regnului Fungi, mucegaiul *clopotelul suna*",
+      "id": "biologie"
+    },
+    {
+      "q": "Pentru acasa o sa aveti de facut un eseu despre hranirea saprofita",
+      "left": {
+        "decision": "Nici gand ca o sa fac tema",
+        "effect": [4, -2, 0, 0]
+      },
+      "right": {
+        "decision": "O sa imi dau interesul",
+        "effect": [-4, 2, 0, 0]
+      },
+      "id": "biologie"
+    }
+  ],
+  [
+    {
+      "q": "Scoateti o foaie de hartie, azi vom da un scurt test",
+      "id": "engleza"
+    },
+    {
+      "q": "Ajuta-ne si pe noi la test",
+      "left": {
+        "decision": "Nici gand",
+        "effect": [0, 4, 0, -6]
+      },
+      "right": {
+        "decision": "Sigur",
+        "effect": [0, -6, 0, 4]
+      },
+      "id": "group"
     }
   ]
 ]

@@ -5,7 +5,7 @@ const Timer = props => {
     return (
         <View style={styles.main}>
             <Text style={styles.text}>
-                Au trecut {props.passed} zile.
+                Au trecut {props.passed} zile din 365.
             </Text>
         </View>
     );

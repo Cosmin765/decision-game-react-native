@@ -7,13 +7,10 @@ import Timer from 'components/Timer';
 import CustomAlert from 'components/CustomAlert';
 
 import { replace } from 'src/navigation';
-import { getItem } from 'src/storage';
 
 const Game = props => {
     const maxLevel = 20;
     const statsCount = 4;
-
-    getItem('username').then(name => console.log(name));
 
     const gameEventsInitial = useRef(require('root/data/gameEvents.json').sort(() => Math.random() - 0.5)).current;
 

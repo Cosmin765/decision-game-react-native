@@ -1,12 +1,45 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { StyleSheet, View, Text, Dimensions, Image, Animated, PanResponder } from 'react-native';
 import names from 'root/data/names.json';
+
+import { getItem } from 'src/storage';
+
+const transformString = async str => {
+    const keys = [];
+
+    let lastIndex = -1;
+
+    while(true)
+    {
+        let key = "";
+        let index = str.indexOf('$', lastIndex + 1);
+
+        if(index === -1) break;
+
+        for(let i = index + 1; str[i] != ' '; ++i)
+            key += str[i];
+
+        lastIndex = index;
+    
+        keys.push(key);
+    }
+
+    for(const key of keys)
+    {
+        const item = await getItem(key);
+        str = str.replace(`$${key} `, item);
+    }
+
+    return str;
+};
 
 const screen = Dimensions.get("window");
 const animDuration = 600;
 
 const Card = props => {
     const { gameEvent, source, updateStatsLevel } = props;
+
+    const [question, setQuestion] = useState(null);
 
     const pos = useRef(new Animated.ValueXY()).current;
     
@@ -24,7 +57,7 @@ const Card = props => {
 
         Animated.timing(pos, { toValue: { x: dir * 1.1 * screen.width, y: 0 }, useNativeDriver: false, duration: animDuration }).start();
 
-        setTimeout(() => updateStatsLevel(option.effect || Array(4).fill(0)), animDuration);
+        setTimeout(() => updateStatsLevel(option ? (option.effect || Array(4).fill(0)) : Array(4).fill(0)), animDuration);
     };
 
     const visible = props.visible !== false;
@@ -44,6 +77,8 @@ const Card = props => {
     
     if(!visible) return null;
 
+    if(!question) transformString(gameEvent.q).then(str => setQuestion(str));
+
     return (
         <Animated.View 
             {...panResponder.panHandlers}
@@ -62,7 +97,7 @@ const Card = props => {
             
             <View style={styles.visibleFace}>
                 <SizedBox height={"20%"}/>
-                <Text style={styles.question}> " { gameEvent.q } " </Text>
+                <Text style={styles.question}> " { question } " </Text>
 
                 <Image source={source} style={styles.avatar}/>
                 <Text style={styles.name}> { names[gameEvent.id] } </Text>
@@ -90,7 +125,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         color: "#00ffff",
         top: 0,
-        width: "47%",
+        width: "70%",
         fontSize: 18,
         padding: 25,
     },

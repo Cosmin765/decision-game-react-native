@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
 
         justifyContent: "space-around",
         alignItems: "center",
+        zIndex: 11,
     },
     title: {
         fontSize: 30,
