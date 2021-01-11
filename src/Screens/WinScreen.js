@@ -94,9 +94,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 30,
     },
     dialogueContainer: {
-        backgroundColor: "white",
+        backgroundColor: "#fff",
         width: screen.width * 0.8,
-        borderWidth: 3,
+        borderWidth: 2,
         borderColor: "red",
         borderRadius: 40,
         borderStyle: "dashed"

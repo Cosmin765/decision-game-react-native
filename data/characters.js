@@ -11,6 +11,7 @@ const images = {
     portar: require('./../assets/characters/portar.png'),
     sport: require('./../assets/characters/sport.png'),
     tocilara: require('./../assets/characters/tocilara.png'),
+    self: require('./../assets/characters/self.png'),
 };
 
 export default images;

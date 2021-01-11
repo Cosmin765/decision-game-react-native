@@ -1,161 +1,199 @@
 [
   {
     "q": "$username , ti-am adus testul, dar nota nu este una chiar buna. Doresti sa mai inveti si sa dai testul din nou?",
-    "left": {
-      "effect": [4, -4, 0, 0]
-    },
-    "right": {
-      "effect": [-4, 4, 0, 0]
-    },
+    "variants": [
+      {
+        "deicision": "Nu",
+        "effect": [4, -4, 0, 0]
+      },
+      {
+        "deicision": "Da",
+        "effect": [-4, 4, 0, 0]
+      }
+    ],
     "id": "mate"
   },
   {
     "q": "Aveti de facut un proiect despre Franta. Veti lucra in grupe de cate 4",
-    "left": {
-      "decision": "O sa ajut si eu",
-      "effect": [-6, 0, -2, 4]
-    },
-    "right": {
-      "decision": "Nu ma implic",
-      "effect": [4, 0, 0, -6]
-    },
+    "variants": [
+      {
+        "decision": "O sa ajut si eu",
+        "effect": [-6, 0, -2, 4]
+      },
+      {
+        "decision": "Nu ma implic",
+        "effect": [4, 0, 0, -6]
+      }
+    ],
     "id": "franceza"
   },
   {
     "q": "Voiam sa te intrebam daca vrei sa participi la petrecerea de Halloween de diseara",
-    "left": {
-      "decision": "O sa vin (cumpar costum)",
-      "effect": [-2, 0, -4, 6]
-    },
-    "right": {
-      "decision": "Nu pot veni",
-      "effect": [4, 0, 2, -6]
-    },
+    "variants": [
+      {
+        "decision": "O sa vin (cumpar costum)",
+        "effect": [-2, 0, -4, 6]
+      },
+      {
+        "decision": "Nu pot veni",
+        "effect": [4, 0, 2, -6]
+      }
+    ],
     "id": "group"
   },
   {
     "q": "Dupa cum stiti, maine dam un scurt test. Sper sa va pregatiti",
-    "left": {
-      "decision": "O sa mai repet cuvinte noi",
-      "effect": [-3, 3, 0, 0]
-    },
-    "right": {
-      "decision": "Ma bazez pe vocabularul vechi",
-      "effect": [3, -3, 0, 0]
-    },
+    "variants": [
+      {
+        "decision": "O sa mai repet cuvinte noi",
+        "effect": [-3, 3, 0, 0]
+      },
+      {
+        "decision": "Ma bazez pe vocabularul vechi",
+        "effect": [3, -3, 0, 0]
+      }
+    ],
     "id": "engleza"
   },
   {
     "q": "*Grupul tau de prieteni iti inmaneaza o tigara* - Incearca si tu",
-    "left": {
-      "effect": [0, 2, 2, -2]
-    },
-    "right": {
-      "effect": [-2, -3, -3, 6]
-    },
+    "variants": [
+      {
+        "decision": "Nu",
+        "effect": [0, 2, 2, -2]
+      },
+      {
+        "decision": "Da",
+        "effect": [-2, -3, -3, 6]
+      }
+    ],
     "id": "group"
   },
   {
     "q": "Vrei sa lucram impreuna la proiectul de saptamana viitoare?",
-    "left": {
-      "effect": [0, -6, 0, 4]
-    },
-    "right": {
-      "effect": [0, 4, 0, -2]
-    },
+    "variants": [
+      {
+        "decision": "Nu",
+        "effect": [0, -6, 0, 4]
+      },
+      {
+        "decision": "Da",
+        "effect": [0, 4, 0, -2]
+      }
+    ],
     "id": "tocilara"
   },
   {
     "q": "Buna! Poti sa imi faci tema la romana, nu am timp sa o fac eu",
-    "left": {
-      "effect": [4, 0, 0, -2]
-    },
-    "right": {
-      "effect": [-2, -2, 0, 2]
-    },
+    "variants": [
+      {
+        "decision": "Nu",
+        "effect": [4, 0, 0, -2]
+      },
+      {
+        "decision": "Da",
+        "effect": [-2, -2, 0, 2]
+      }
+    ],
     "id": "crush"
   },
   {
     "q": "Oferta zilei, culegere de mate cu 50% reducere",
-    "left": {
-      "decision": "O iau",
-      "effect": [0, 3, -4, 0]
-    },
-    "right": {
-      "decision": "Nu ma intereseaza",
-      "effect": [0, -3, 0, 0]
-    },
+    "variants": [
+      {
+        "decision": "O iau",
+        "effect": [0, 3, -4, 0]
+      },
+      {
+        "decision": "Nu ma intereseaza",
+        "effect": [0, -3, 0, 0]
+      }
+    ],
     "id": "bijnitar"
   },
   {
     "q": "Astazi aveti de facut 50 de flotari. Sper ca nu sunteti bolnavi",
-    "left": {
-      "decision": "O sa invat la biologie",
-      "effect": [2, 3, 0, -4]
-    },
-    "right": {
-      "decision": "O sa dau proba",
-      "effect": [-2, -2, 0, 4]
-    },
+    "variants": [
+      {
+        "decision": "O sa invat la biologie",
+        "effect": [2, 3, 0, -4]
+      },
+      {
+        "decision": "O sa dau proba",
+        "effect": [-2, -2, 0, 4]
+      }
+    ],
     "id": "sport"
   },
   {
     "q": "$username , vrei sa jucam niste PUBG?",
-    "left": {
-      "effect": [1, 1, 0, -4]
-    },
-    "right": {
-      "effect": [-3, 0, 0, 3]
-    },
+    "variants": [
+      {
+        "decision": "Nu",
+        "effect": [1, 1, 0, -4]
+      },
+      {
+        "decision": "Nu",
+        "effect": [-3, 0, 0, 3]
+      }
+    ],
     "id": "bff"
   },
   {
     "q": "* Unii colegi au spart un geam *",
-    "left": {
-      "decision": "O sa ii parasc directoarei",
-      "effect": [0, 6, 0, -4]
-    },
-    "right": {
-      "decision": "Nu e treaba mea",
-      "effect": [0, 0, 0, 2]
-    },
+    "variants": [
+      {
+        "decision": "O sa ii parasc directoarei",
+        "effect": [0, 6, 0, -4]
+      },
+      {
+        "decision": "Nu e treaba mea",
+        "effect": [0, 0, 0, 2]
+      }
+    ],
     "id": "group"
   },
   {
     "q": "50 de lei daca vrei sa te las inauntru",
-    "left": {
-      "decision": "Nu o sa vezi",
-      "effect": [0, -6, 0, 0]
-    },
-    "right": {
-      "decision": "Ok...",
-      "effect": [0, 0, -6, 0]
-    },
+    "variants": [
+      {
+        "decision": "Nu o sa vezi",
+        "effect": [0, -6, 0, 0]
+      },
+      {
+        "decision": "Ok...",
+        "effect": [0, 0, -6, 0]
+      }
+    ],
     "id": "portar"
   },
   {
     "q": "Vrei sa imi vinzi culegerea de matematica?",
-    "left": {
-      "decision": "Nu e de vanzare",
-      "effect": [0, 0, 0, 0]
-    },
-    "right": {
-      "decision": "Normal ca da",
-      "effect": [0, -6, 6, 0]
-    },
+    "variants": [
+      {
+        "decision": "Nu e de vanzare",
+        "effect": [0, 0, 0, 0]
+      },
+      {
+        "decision": "Normal ca da",
+        "effect": [0, -6, 6, 0]
+      }
+    ],
     "id": "tocilara"
   },
   {
     "q": "Poate ar fi cazul sa mai studiez putin...",
-    "left": {
-      "decision": "Nah...",
-      "effect": [4, -6, 0, 0]
-    },
-    "right": {
-      "decision": "Cred ca e o idee buna",
-      "effect": [-6, 4, 0, 0]
-    },
-    "id": ""
+    "variants": [
+      {
+        "decision": "Nah...",
+        "effect": [4, -6, 0, 0]
+      },
+      {
+        "decision": "Cred ca e o idee buna",
+        "effect": [-6, 4, 0, 0]
+      }
+    ],
+    "id": "self"
   },
   [
     {
@@ -168,14 +206,16 @@
     },
     {
       "q": "Ce functie a ADN reprezinta replicatia conservativa?",
-      "left": {
-        "decision": "Autocatalitica",
-        "effect": [0, 4, 0, 0]
-      },
-      "right": {
-        "decision": "Heterocatalitica",
-        "effect": [0, -4, 0, 0]
-      },
+      "variants": [
+        {
+          "decision": "Autocatalitica",
+          "effect": [0, 4, 0, 0]
+        },
+        {
+          "decision": "Heterocatalitica",
+          "effect": [0, -4, 0, 0]
+        }
+      ],
       "id": "biologie"
     }
   ],
@@ -186,14 +226,16 @@
     },
     {
       "q": "Zi-mi cine a mai facut-o si te scap",
-      "left": {
-        "decision": "Gigel si cu Maria",
-        "effect": [0, 0, 0, -4]
-      },
-      "right": {
-        "decision": "Doar eu am copiat",
-        "effect": [0, -4, 0, 2]
-      },
+      "variants": [
+        {
+          "decision": "Gigel si cu Maria",
+          "effect": [0, 0, 0, -4]
+        },
+        {
+          "decision": "Doar eu am copiat",
+          "effect": [0, -4, 0, 2]
+        }
+      ],
       "id": "directoare"
     }
   ],
@@ -204,14 +246,16 @@
     },
     {
       "q": "Pentru acasa o sa aveti de facut un eseu despre hranirea saprofita",
-      "left": {
-        "decision": "Nici gand ca o sa fac tema",
-        "effect": [4, -2, 0, 0]
-      },
-      "right": {
-        "decision": "O sa imi dau interesul",
-        "effect": [-4, 2, 0, 0]
-      },
+      "variants": [
+        {
+          "decision": "Nici gand ca o sa fac tema",
+          "effect": [4, -2, 0, 0]
+        },
+        {
+          "decision": "O sa imi dau interesul",
+          "effect": [-4, 2, 0, 0]
+        }
+      ],
       "id": "biologie"
     }
   ],
@@ -222,14 +266,16 @@
     },
     {
       "q": "Ajuta-ne si pe noi la test",
-      "left": {
-        "decision": "Nici gand",
-        "effect": [0, 4, 0, -6]
-      },
-      "right": {
-        "decision": "Sigur",
-        "effect": [0, -6, 0, 4]
-      },
+      "variants": [
+        {
+          "decision": "Nici gand",
+          "effect": [0, 4, 0, -6]
+        },
+        {
+          "decision": "Sigur",
+          "effect": [0, -6, 0, 4]
+        }
+      ],
       "id": "group"
     }
   ]

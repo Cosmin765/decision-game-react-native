@@ -1,4 +1,4 @@
-import React, { useRef, forwardRef, useImperativeHandle } from 'react';
+import React, { useRef, forwardRef, useImperativeHandle, useState } from 'react';
 import { Animated, StyleSheet, SafeAreaView, TextInput, Dimensions, TouchableOpacity, Text, Keyboard } from 'react-native';
 
 import { setItem } from 'src/storage';
@@ -10,22 +10,24 @@ const animate = (anim, toValue, callback = () => {}) => Animated.spring(anim, { 
 
 const NamePrompt = forwardRef((props, ref) => {
     let name = '';
+    const [visible, setVisible] = useState(false);
 
     const handleSubmit = async () => {
-        await setItem('username', name);
+        if(name) await setItem('username', name);
         Keyboard.dismiss();
         name = '';
-        animate(scale, 0, () => inputRef.current.clear());
+        inputRef.current.clear();
+        animate(scale, 0, () => setVisible(false));
     };
 
     const inputRef = useRef();
 
     const scale = new Animated.Value(0);
 
-    useImperativeHandle(ref, () => ({ firePrompt: () => animate(scale, 1) }));
+    useImperativeHandle(ref, () => ({ firePrompt: () => animate(scale, 1, () => setVisible(true)) }));
     
     return (
-        <Animated.View style={{...styles.main, transform: [ { scale } ]}}>
+        <Animated.View style={{...styles.main, transform: [ { scale } ]}} pointerEvents={visible ? "auto" : "none"}>
             <SafeAreaView>
                     <TextInput style={styles.textInput} placeholder="Introduceti-va numele..." placeholderTextColor="black" onSubmitEditing={handleSubmit} ref={inputRef} onChange={event => name = event.nativeEvent.text}/>
             </SafeAreaView>

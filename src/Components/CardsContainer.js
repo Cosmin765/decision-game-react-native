@@ -10,7 +10,7 @@ import images from 'root/data/characters';
 const CardsContainer = props => {
     let cards = null;
 
-    if(props.gameEvent.length) {
+    if(props.gameEvent && props.gameEvent.length) {
         cards = Array(props.gameEvent.length).fill(0).map((_, i) => {
             return <Card key={uuid()} source={images[props.gameEvent[i].id]} {...props} gameEvent={props.gameEvent[i]} visible={i === 0} />
         }).reverse();
@@ -19,9 +19,9 @@ const CardsContainer = props => {
     return (
         <View style={styles.cardsContainer}>
             <View style={styles.cardsHolder}>
-                <CardIllusion />
+                { props.illusion ? <CardIllusion /> : null }
 
-                { cards || <Card key={uuid()} source={images[props.gameEvent.id]} {...props} /> }
+                { cards || (props.gameEvent ? <Card key={uuid()} source={images[props.gameEvent.id]} {...props} /> : null) }
             </View>
         </View>
     );

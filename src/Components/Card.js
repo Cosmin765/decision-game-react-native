@@ -39,6 +39,8 @@ const animDuration = 600;
 const Card = props => {
     const { gameEvent, source, updateStatsLevel } = props;
 
+    const variants = gameEvent.variants ? gameEvent.variants.sort(() => Math.random() - 0.5) : [null, null];
+
     const [question, setQuestion] = useState(null);
 
     const pos = useRef(new Animated.ValueXY()).current;
@@ -53,18 +55,20 @@ const Card = props => {
     const resetPos = () => Animated.spring(pos, { toValue: { x: 0, y: 0 }, useNativeDriver: false, mass: 0.7 }).start();
 
     const fadeTo = dir => {
-        const option = dir === -1 ? gameEvent.left : gameEvent.right;
+        const option = dir === -1 ? variants[0] : variants[1];
 
         Animated.timing(pos, { toValue: { x: dir * 1.1 * screen.width, y: 0 }, useNativeDriver: false, duration: animDuration }).start();
 
-        setTimeout(() => updateStatsLevel(option ? (option.effect || Array(4).fill(0)) : Array(4).fill(0)), animDuration);
+        const effect = (option && option.effect) ? option.effect : Array(4).fill(0);
+
+        setTimeout(() => updateStatsLevel(effect), animDuration);
     };
 
-    const visible = props.visible !== false;
+    const visible = props.visible !== false; // doing this because if it's undefined, it's automatically visible
 
     const panResponder = useRef(
         PanResponder.create({
-            onStartShouldSetPanResponder : () => visible, // doing this because if it's undefined, it's automatically visible
+            onStartShouldSetPanResponder : () => visible,
             onPanResponderMove: Animated.event([null, { dx : pos.x, dy : pos.y }], { useNativeDriver: false }),
             onPanResponderRelease: e => {
                 const x = e.nativeEvent.pageX - screen.width / 2;
@@ -92,13 +96,13 @@ const Card = props => {
             }}
         >
 
-            <Animated.Text style={{ ...styles.decision, ...styles.decisionLeft, opacity: opacity.left }}> { gameEvent.left ? (gameEvent.right.decision || "Da") : "..." } </Animated.Text>
-            <Animated.Text style={{ ...styles.decision, ...styles.decisionRight, opacity: opacity.right }}> { gameEvent.right ? (gameEvent.left.decision || "Nu") : "..." } </Animated.Text>
+            <Animated.Text style={{ ...styles.decision, ...styles.decisionLeft, opacity: opacity.left }}> { variants[0] ? variants[0].decision : "..." } </Animated.Text>
+            <Animated.Text style={{ ...styles.decision, ...styles.decisionRight, opacity: opacity.right }}> { variants[1] ? variants[1].decision : "..." } </Animated.Text>
             
             <View style={styles.visibleFace}>
                 <SizedBox height={"20%"}/>
                 <Text style={styles.question}> " { question } " </Text>
-
+                
                 <Image source={source} style={styles.avatar}/>
                 <Text style={styles.name}> { names[gameEvent.id] } </Text>
             </View>

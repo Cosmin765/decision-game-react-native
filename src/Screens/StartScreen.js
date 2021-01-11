@@ -30,11 +30,6 @@ const StartScreen = props => {
             </TouchableOpacity>
 
             <NamePrompt ref={namePromptRef}/>
-
-            {/* TODO: delete this */}
-            <TouchableOpacity onPress={() => removeItem('username')} style={{position: "absolute", bottom: 0, left: 0, backgroundColor: "red", padding: 20, borderRadius: 20}}>
-                <Text style={{color: "#fff"}}> Delete name </Text>
-            </TouchableOpacity>
         </SafeAreaView>
     );
 };
