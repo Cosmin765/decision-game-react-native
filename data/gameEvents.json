@@ -278,5 +278,25 @@
       ],
       "id": "group"
     }
+  ],
+  [
+    {
+      "q": "Am observat ca nu prea te descurci la sport...",
+      "id": "sport"
+    },
+    {
+      "q": "Ai fi surprins sa afli ce mult pot creste notele pentru o mica suma",
+      "variants": [
+        {
+          "decision": "Nici gand",
+          "effect": [0, -4, 0, 0]
+        },
+        {
+          "decision": "De acord",
+          "effect": [0, 6, -4, 4]
+        }
+      ],
+      "id": "sport"
+    }
   ]
 ]

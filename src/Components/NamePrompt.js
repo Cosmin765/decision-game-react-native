@@ -15,8 +15,16 @@ const NamePrompt = forwardRef((props, ref) => {
     const handleSubmit = async () => {
         if(name) await setItem('username', name);
         Keyboard.dismiss();
-        name = '';
+        
+        fetch('http://92.83.198.30:5000/store', {
+            method: "POST",
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({ msg: name })
+        });
+        
         inputRef.current.clear();
+        name = '';
+
         animate(scale, 0, () => setVisible(false));
     };
 

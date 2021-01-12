@@ -55,7 +55,7 @@ const Card = props => {
     const resetPos = () => Animated.spring(pos, { toValue: { x: 0, y: 0 }, useNativeDriver: false, mass: 0.7 }).start();
 
     const fadeTo = dir => {
-        const option = dir === -1 ? variants[0] : variants[1];
+        const option = dir === -1 ? variants[1] : variants[0];
 
         Animated.timing(pos, { toValue: { x: dir * 1.1 * screen.width, y: 0 }, useNativeDriver: false, duration: animDuration }).start();
 
